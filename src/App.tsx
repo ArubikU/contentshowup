@@ -2,23 +2,7 @@
 import { ChevronDown, Download, Eye, Github, Search } from "lucide-react"
 import { useEffect, useState } from "react"
 import { Badge, Button, Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle, Collapsible, CollapsibleContent, CollapsibleTrigger, Input } from "./Components"
-
-export type Iginio = {
-  name: string
-  repository: string
-  description: string
-  versions: {
-    version: string
-    file: {
-      type: "BIN" | "LINK"
-      raw: string
-      extra?: string
-    }
-  }[]
-  author: string
-  logo?: string
-  tags: string[]
-}
+import { Iginio, mockIgnios } from "./IgnioData"
 
 export default function App() {
   const [ignios, setIgnios] = useState<Iginio[]>([])
@@ -27,64 +11,6 @@ export default function App() {
   const [showIgnios, setShowIgnios] = useState(false)
 
   const loadIgnios = () => {
-    // This is a mock implementation. In a real scenario, you'd load the ignios from an API or local storage.
-    const mockIgnios: Iginio[] = [
-      {
-        name: "ExampleMod",
-        repository: "https://github.com/example/examplemod",
-        description: "This is an example mod that showcases various features of Ignite.",
-        versions: [
-          {
-            version: "1.20.4",
-            file: {
-              type: "LINK",
-              raw: "https://example.com/examplemod-1.20.4.jar"
-            }
-          },
-          {
-            version: "1.20.2",
-            file: {
-              type: "LINK",
-              raw: "https://example.com/examplemod-1.20.2.jar"
-            }
-          },
-          {
-            version: "1.19.4",
-            file: {
-              type: "LINK",
-              raw: "https://example.com/examplemod-1.19.4.jar"
-            }
-          },
-          {
-            version: "1.19.2",
-            file: {
-              type: "BIN",
-              raw: "1010010101001010100101010010101010010101001010101001010100101010",
-              extra: "examplemod-1.19.2.zip"
-            }
-          }
-        ],
-        author: "https://github.com/exampleauthor",
-        logo: "https://example.com/examplemod-logo.png",
-        tags: ["vanilla", "1.20.1", "optimization"]
-      },
-      {
-        name: "AnotherMod",
-        repository: "https://github.com/example/anothermod",
-        description: "This is another example mod with different features.",
-        versions: [
-          {
-            version: "1.20.4",
-            file: {
-              type: "LINK",
-              raw: "https://example.com/anothermod-1.20.4.jar"
-            }
-          }
-        ],
-        author: "https://github.com/anotherauthor",
-        tags: ["1.20.4", "gameplay", "adventure"]
-      }
-    ]
     setIgnios(mockIgnios)
   }
 
@@ -121,7 +47,7 @@ export default function App() {
   const allTags = Array.from(new Set(ignios.flatMap(iginio => iginio.tags)))
 
   return (
-    <div className="min-h-screen bg-gray-100 dark:bg-gray-900">
+    <div className="min-h-screen bg-gray-100 dark:bg-gray-900 flex flex-col">
       <header className="bg-white dark:bg-gray-800 shadow">
         <nav className="container mx-auto px-6 py-3">
           <div className="flex items-center justify-between">
@@ -138,7 +64,7 @@ export default function App() {
         </nav>
       </header>
 
-      <main className="container mx-auto px-6 py-8">
+      <main className="container mx-auto px-6 py-8 flex-grow">
         <section className="text-center mb-12">
           <h1 className="text-4xl font-bold text-gray-800 dark:text-white mb-4">Welcome to Ignite</h1>
           <p className="text-xl text-gray-600 dark:text-gray-300 mb-8">The powerful Mod loader for your gaming needs</p>
@@ -190,14 +116,14 @@ export default function App() {
                       {iginio.name}
                     </CardTitle>
                     <CardDescription>
-                      <a href={iginio.repository} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">
+                      <a href={iginio.repository} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:text-blue-600 dark:text-blue-400 dark:hover:text-blue-300">
                         View Repository
                       </a>
                     </CardDescription>
                   </CardHeader>
                   <CardContent>
                     <p className="mb-4"><strong>Description:</strong> {iginio.description}</p>
-                    <p><strong>Author:</strong> <a href={iginio.author} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">View Profile</a></p>
+                    <p><strong>Author:</strong> <a href={iginio.author} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:text-blue-600 dark:text-blue-400 dark:hover:text-blue-300">View Profile</a></p>
                     <div className="flex flex-wrap gap-2 mt-2">
                       {iginio.tags.map(tag => (
                         <Badge key={tag} variant="secondary">{tag}</Badge>
@@ -238,7 +164,7 @@ export default function App() {
       <footer className="bg-white dark:bg-gray-800 shadow mt-12">
         <div className="container mx-auto px-6 py-4">
           <p className="text-center text-gray-600 dark:text-gray-300">
-            © 2024 Ignite. Created by <a href="https://github.com/vectrix-space" target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">Vectrix</a>.
+            © 2024 Ignite. Created by <a href="https://github.com/vectrix-space" target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:text-blue-600 dark:text-blue-400 dark:hover:text-blue-300">Vectrix</a>.
           </p>
         </div>
       </footer>
