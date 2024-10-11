@@ -3,7 +3,7 @@ import { ChevronDown, Download, Eye, Github, Search } from "lucide-react"
 import { useEffect, useState } from "react"
 import { Badge, Button, Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle, Collapsible, CollapsibleContent, CollapsibleTrigger, Input } from "./Components"
 
-type Iginio = {
+export type Iginio = {
   name: string
   repository: string
   description: string
