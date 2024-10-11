@@ -13,6 +13,7 @@ export type Iginio = {
     }[]
     author: string
     logo?: string
+    banner?: string
     tags: string[]
   }
 export const mockIgnios: Iginio[] = [

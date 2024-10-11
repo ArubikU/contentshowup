@@ -3,6 +3,158 @@ import * as SelectPrimitive from "@radix-ui/react-select"
 import { Check, ChevronDown } from "lucide-react"
 import * as React from "react"
 
+import { ReactNode, useEffect, useState } from 'react'
+
+interface AccordionProps {
+    children: React.ReactNode;
+    type?: "single" | "multiple"; // Para manejar si es de tipo single o multiple
+    collapsible?: boolean; // Opción para permitir colapsar los ítems
+}
+
+export const Accordion = ({ children, type = "single", collapsible = true }: AccordionProps) => {
+    const [openIndex, setOpenIndex] = useState<number | null>(null);
+
+    const toggleItem = (index: number) => {
+        if (type === "single") {
+            setOpenIndex(openIndex === index && collapsible ? null : index);
+        }
+    };
+
+    return (
+        <div>
+            {React.Children.map(children, (child, index) => {
+                if (React.isValidElement(child)) {
+                    return React.cloneElement(child, 
+                         openIndex === index,
+                        () => toggleItem(index),
+                    );
+                }
+                return child;
+            })}
+        </div>
+    );
+};
+
+interface AccordionItemProps {
+    children: React.ReactNode;
+    value: string;
+    isOpen?: boolean; // Esta propiedad la manejamos para saber si está abierto
+    onToggle?: () => void; // Esta propiedad la usamos para abrir o cerrar el acordeón
+}
+
+export const AccordionItem = ({ children, isOpen, onToggle }: AccordionItemProps) => {
+    const mappedChildren = React.Children.map(children, (child) => {
+        if (React.isValidElement(child)) {
+            if (child.type === AccordionTrigger) {
+                return React.cloneElement(child,  onToggle );
+            }
+            if (child.type === AccordionContent) {
+                return React.cloneElement(child,  isOpen );
+            }
+        }
+        return child;
+    });
+
+    return <div>{mappedChildren}</div>;
+};
+
+interface AccordionTriggerProps {
+    children: React.ReactNode;
+    onToggle?: () => void; // onToggle será opcional
+}
+
+export const AccordionTrigger = ({ children, onToggle }: AccordionTriggerProps) => {
+    return (
+        <button onClick={onToggle} style={{ width: "100%", textAlign: "left" }}>
+            {children}
+        </button>
+    );
+};
+
+interface AccordionContentProps {
+    children: React.ReactNode;
+    isOpen?: boolean; // isOpen determinará si mostramos o no el contenido
+}
+
+export const AccordionContent = ({ children, isOpen }: AccordionContentProps) => {
+    return isOpen ? <div>{children}</div> : null;
+};
+
+interface DialogProps {
+    open: boolean
+    onOpenChange: (open: boolean) => void
+    children: ReactNode
+  }
+  
+  export function Dialog({ open, onOpenChange, children }: DialogProps) {
+    const [isVisible, setIsVisible] = useState(open)
+  
+    useEffect(() => {
+      if (open) {
+        setIsVisible(true)
+      } else {
+        const timer = setTimeout(() => setIsVisible(false), 300)
+        return () => clearTimeout(timer)
+      }
+    }, [open])
+  
+    if (!isVisible) return null
+  
+    return (
+      <div className="fixed inset-0 z-50 overflow-y-auto">
+        <div className="flex min-h-screen items-end justify-center px-4 pt-4 pb-20 text-center sm:block sm:p-0">
+          <div
+            className={`fixed inset-0 bg-black bg-opacity-25 transition-opacity ${
+              open ? 'opacity-100' : 'opacity-0'
+            }`}
+            aria-hidden="true"
+            onClick={() => onOpenChange(false)}
+          />
+  
+          <span className="hidden sm:inline-block sm:h-screen sm:align-middle" aria-hidden="true">
+            &#8203;
+          </span>
+  
+          <div
+            className={`inline-block transform overflow-hidden rounded-lg bg-white text-left align-bottom shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:align-middle ${
+              open ? 'opacity-100 translate-y-0 sm:scale-100' : 'opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95'
+            }`}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="modal-headline"
+          >
+            {children}
+          </div>
+        </div>
+      </div>
+    )
+  }
+  
+  interface DialogContentProps {
+    children: ReactNode
+    className?: string
+  }
+  
+  export function DialogContent({ children, className = '' }: DialogContentProps) {
+    return <div className={`bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4 ${className}`}>{children}</div>
+  }
+  
+  export function DialogHeader({ children }: { children: ReactNode }) {
+    return <div className="mb-4">{children}</div>
+  }
+  
+  export function DialogTitle({ children }: { children: ReactNode }) {
+    return (
+      <h3 className="text-lg font-medium leading-6 text-gray-900" id="modal-headline">
+        {children}
+      </h3>
+    )
+  }
+  
+  export function DialogDescription({ children }: { children: ReactNode }) {
+    return <div className="mt-2 text-sm text-gray-500">{children}</div>
+  }
+
 // Button Component
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: 'default' | 'destructive' | 'outline' | 'secondary' | 'ghost' | 'link'
@@ -236,3 +388,4 @@ SelectSeparator.displayName = SelectPrimitive.Separator.displayName
 export {
     Badge, Button, Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle, Collapsible, CollapsibleContent, CollapsibleTrigger, Input, Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectSeparator, SelectTrigger, SelectValue
 }
+
