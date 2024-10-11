@@ -47,17 +47,17 @@ export default function App() {
   const allTags = Array.from(new Set(ignios.flatMap(iginio => iginio.tags)))
 
   return (
-    <div className="min-h-screen bg-gray-100 dark:bg-gray-900 flex flex-col">
-      <header className="bg-white dark:bg-gray-800 shadow">
+    <div className="min-h-screen bg-gray-100  flex flex-col">
+      <header className="bg-white  shadow">
         <nav className="container mx-auto px-6 py-3">
           <div className="flex items-center justify-between">
             <div className="flex items-center">
-              <img src="/placeholder.svg?height=32&width=32" alt="Ignite Logo" className="h-8 w-8 mr-2" />
+              <img src="https://avatars.githubusercontent.com/u/80665664?s=48&v=4?height=32&width=32" alt="Ignite Logo" className="h-8 w-8 mr-2" />
               <span className="text-xl font-bold text-gray-800 dark:text-white">Ignite</span>
             </div>
             <div className="flex items-center">
               <a href="https://github.com/vectrix-space/ignite" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-gray-800 dark:text-gray-300 dark:hover:text-white ml-4">
-                <Github className="h-6 w-6" />
+                <Github className="h-6 w-6 text-black" />
               </a>
             </div>
           </div>
@@ -66,17 +66,17 @@ export default function App() {
 
       <main className="container mx-auto px-6 py-8 flex-grow">
         <section className="text-center mb-12">
-          <h1 className="text-4xl font-bold text-gray-800 dark:text-white mb-4">Welcome to Ignite</h1>
-          <p className="text-xl text-gray-600 dark:text-gray-300 mb-8">The powerful Mod loader for your gaming needs</p>
-          <Button onClick={() => setShowIgnios(!showIgnios)} size="lg">
-            <Eye className="mr-2 h-5 w-5" />
+          <h1 className="text-4xl font-bold text-gray-800 dark:text-black mb-4">Welcome to Ignite</h1>
+          <p className="text-xl text-gray-600 dark:text-black-300 mb-8">The powerful Mod loader for your gaming needs</p>
+          <Button className="text-white bg-black" onClick={() => setShowIgnios(!showIgnios)} size="lg">
+            <Eye className="mr-2 h-5 w-5 " />
             {showIgnios ? "Hide Ignios" : "View Ignios"}
           </Button>
         </section>
 
         {showIgnios && (
           <section>
-            <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-4">Available Ignios</h2>
+            <h2 className="text-2xl font-bold text-gray-800 dark:text-black mb-4">Available Ignios</h2>
             <div className="mb-6">
               <div className="flex items-center space-x-2 mb-4">
                 <Search className="h-5 w-5 text-gray-400" />
@@ -161,9 +161,9 @@ export default function App() {
         )}
       </main>
 
-      <footer className="bg-white dark:bg-gray-800 shadow mt-12">
+      <footer className="bg-white  shadow mt-12">
         <div className="container mx-auto px-6 py-4">
-          <p className="text-center text-gray-600 dark:text-gray-300">
+          <p className="text-center text-black-600 dark:text-black-300">
             © 2024 Ignite. Created by <a href="https://github.com/vectrix-space" target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:text-blue-600 dark:text-blue-400 dark:hover:text-blue-300">Vectrix</a>.
           </p>
         </div>
