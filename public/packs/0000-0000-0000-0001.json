@@ -1,0 +1,22 @@
+{
+    "name": "Just Fancy Torches",
+    "repository": "https://github.com/SR400X/Just-Fancy-Torches",
+    "description": "This texture pack changes all torch models to a fresh and fancy new look.\nWith Animated Textures! And a better look when holding it.",
+    "versions": [
+      {
+        "version": "v1.1",
+        "file": {
+          "type": "LINK",
+          "raw": "https://github.com/SR400X/Just-Fancy-Torches/raw/refs/heads/main/Just%20Fancy%20Torches%20v1.1.zip"
+        }
+      }
+    ],
+    "author": "SR400X",
+    "tags": [
+      "torch",
+      "item",
+      "animated",
+      "model"
+    ],
+    "loader": "Resourcepack"
+  }
