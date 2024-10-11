@@ -3,7 +3,7 @@ import { useEffect, useState } from "react"
 import { Route, Routes, useNavigate } from "react-router-dom"
 import { Tooltip } from 'react-tooltip'
 import { Badge, Button, Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle, Collapsible, CollapsibleContent, CollapsibleTrigger, Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, Input, Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./Components"
-import { GetPackData, Pack, mockPack } from "./Data"
+import { GetPackData, Pack } from "./Data"
 import { GetLang, GetLangArray, Language, Placeholders } from "./LangSys"
 import { MembersSection } from "./MembersSection"
 import UploadForm from "./UploadForm"
@@ -18,7 +18,10 @@ export default function Component() {
   const [selectedAuthor, setSelectedAuthor] = useState<string | null>(null)
   const [selectedLoader, setSelectedLoader] = useState<string | null>(null)
 
+  const [mockPack, setMockPack] = useState<Pack[]>([])
+
   useEffect(() => {
+    GetPackData().then(data => setMockPack(data))
     const clientLang = navigator.language.slice(0, 2)
     if (Object.values(Language).includes(clientLang as Language)) {
       setLang(clientLang as Language)
@@ -68,7 +71,6 @@ export default function Component() {
 
   const  navigate = useNavigate()
   useEffect(() => {
-    GetPackData();
     navigate('/contentshowup/')
   }
   , [])

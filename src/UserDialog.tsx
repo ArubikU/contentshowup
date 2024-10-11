@@ -47,7 +47,7 @@ export function UserDialog({ isOpen, onClose, authorUrl, packs }: UserDialogProp
       const authorName = author.split('/').pop()
       //fetch(`https://api.modrinth.com/v2/user/${authorName}`) parse json and get avatar_url
       let output = ""
-      let data = fetch(`https://api.modrinth.com/v2/user/${authorName}`)
+      fetch(`https://api.modrinth.com/v2/user/${authorName}`)
       .then(res => res.json())
       .then(data => output = data.avatar_url)
       .catch(err => console.error("Error fetching user data:", err))
