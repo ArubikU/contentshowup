@@ -3,7 +3,7 @@ import { useEffect, useState } from "react"
 import { Route, Routes, useNavigate } from "react-router-dom"
 import { Tooltip } from 'react-tooltip'
 import { Badge, Button, Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle, Collapsible, CollapsibleContent, CollapsibleTrigger, Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, Input, Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./Components"
-import { Pack, mockPack } from "./Data"
+import { GetPackData, Pack, mockPack } from "./Data"
 import { GetLang, GetLangArray, Language, Placeholders } from "./LangSys"
 import { MembersSection } from "./MembersSection"
 import UploadForm from "./UploadForm"
@@ -68,6 +68,7 @@ export default function Component() {
 
   const  navigate = useNavigate()
   useEffect(() => {
+    GetPackData();
     navigate('/contentshowup/')
   }
   , [])

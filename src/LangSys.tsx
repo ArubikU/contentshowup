@@ -149,7 +149,7 @@ const localizations: Locals = {
         },
         uploadForm: {
             title: "Add Content",
-            description: "Upload a project",
+            description: "Description",
             name: "Name",
             repository: "Repository",
             versions: "Versions",
@@ -234,7 +234,7 @@ const localizations: Locals = {
         },
         uploadForm: {
             title: "Agregar Contenido",
-            description: "Subir un proyecto",
+            description: "Descripción",
             name: "Nombre",
             repository: "Repositorio",
             versions: "Versiones",
@@ -319,7 +319,7 @@ const localizations: Locals = {
         },
         uploadForm: {
             title: "Ajouter du Contenu",
-            description: "Télécharger un projet",
+            description: "Description",
             name: "Nom",
             repository: "Dépôt",
             versions: "Versions",

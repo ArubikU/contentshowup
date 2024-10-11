@@ -17,53 +17,23 @@ export type Pack = {
     tags: string[]
     loader?: string
   }
-export const mockPack: Pack[] = [
-    {
-      name: "ExampleMod",
-      repository: "https://github.com/example/examplemod",
-      description: "This is an example mod that showcases various features of Ignite.",
-      loader: "ignite",
-      versions: [
-        {
-          version: "1.20.4",
-          file: {
-            type: "LINK",
-            raw: "https://example.com/examplemod-1.20.4.jar"
-          }
-        },
-        {
-          version: "1.20.2",
-          file: {
-            type: "LINK",
-            raw: "https://example.com/examplemod-1.20.2.jar"
-          }
-        },
-        {
-          version: "1.19.4",
-          file: {
-            type: "LINK",
-            raw: "https://example.com/examplemod-1.19.4.jar"
-          }
+export let mockPack: Pack[];
+
+//get all files from the https://github.com/ArubikU/contentshowup/tree/main/public/packs
+//the files are in format xxxx-xxxx-xxxx-xxxx.json
+//starting from 0000-0000-0000-0000.json to 9999-9999-9999-9999.json
+//each file contains a json object with the pack data
+export const GetPackData = async () => {
+    const packData = [];
+    for (let i = 0; i < 10000; i++) {
+        const response = await fetch(`https://raw.githubusercontent.com/ArubikU/contentshowup/main/public/packs/${i.toString().padStart(4, '0')}-${i.toString().padStart(4, '0')}-${i.toString().padStart(4, '0')}-${i.toString().padStart(4, '0')}.json`);
+        if (response.ok) {
+            const data = await response.json();
+            packData.push(data);
+        }else{
+            break;
         }
-      ],
-      author: "https://github.com/exampleauthor",
-      tags: ["vanilla", "1.20.1", "optimization"]
-    },
-    {
-      name: "AnotherMod",
-      repository: "https://github.com/example/anothermod",
-      description: "This is another example mod with different features.",
-      loader: "ignite",
-      versions: [
-        {
-          version: "1.20.4",
-          file: {
-            type: "LINK",
-            raw: "https://example.com/anothermod-1.20.4.jar"
-          }
-        }
-      ],
-      author: "https://github.com/anotherauthor",
-      tags: ["1.20.4", "gameplay", "adventure"]
     }
-  ]
+    mockPack = packData;
+    return packData;
+}
