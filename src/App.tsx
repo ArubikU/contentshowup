@@ -1,9 +1,9 @@
 import { ChevronDown, Download, ExternalLink, Eye, Github, Globe, Search, Upload } from "lucide-react"
 import { useEffect, useState } from "react"
+import { Tooltip } from 'react-tooltip'
 import { Badge, Button, Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle, Collapsible, CollapsibleContent, CollapsibleTrigger, Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, Input, Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./Components"
 import { Iginio, mockIgnios } from "./Data"
 import { GetLang, GetLangArray, Language, Placeholders } from "./LangSys"
-
 export default function App() {
   const [ignios, setIgnios] = useState<Iginio[]>([])
   const [searchTerm, setSearchTerm] = useState("")
@@ -29,21 +29,26 @@ export default function App() {
 
   const handleDownload = (version: Iginio['versions'][0]) => {
     if (version.file.type === "LINK") {
-      window.open(version.file.raw, '_blank')
-    } else if (version.file.type === "BIN") {
-      const binaryString = atob(version.file.raw)
-      const bytes = new Uint8Array(binaryString.length)
-      for (let i = 0; i < binaryString.length; i++) {
-        bytes[i] = binaryString.charCodeAt(i)
-      }
-      const blob = new Blob([bytes], { type: 'application/zip' })
-      const link = document.createElement('a')
-      link.href = window.URL.createObjectURL(blob)
-      link.download = version.file.extra || 'download.zip'
-      link.click()
+      // Open the link in a new tab
+      window.open(version.file.raw, '_blank');
+    } else if (version.file.type === "URI") {
+      const uriData = version.file.raw; // Base64 or URI data
+      const fileName = version.file.extra; // Suggested filename
+  
+      // Create a temporary link element
+      const downloadLink = document.createElement('a');
+      downloadLink.href = uriData;
+      downloadLink.download = fileName;
+  
+      // Trigger the download by programmatically clicking the link
+      document.body.appendChild(downloadLink);
+      downloadLink.click();
+  
+      // Clean up: remove the link after downloading
+      document.body.removeChild(downloadLink);
     }
-  }
-
+  };
+  
   const filteredIgnios = ignios.filter(iginio =>
     (iginio.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       iginio.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()))) &&
@@ -62,7 +67,7 @@ export default function App() {
           <div className="flex items-center justify-between">
             <div className="flex items-center">
               <img src="https://avatars.githubusercontent.com/u/80665664?s=48&v=4?height=32&width=32" alt={Placeholders.title + " Logo"} className="h-8 w-8 mr-2" />
-              <span className="text-xl font-bold text-gray-800 dark:text-white">{Placeholders.title}</span>
+              <span className="text-xl font-bold text-gray-800 dark:text-black">{Placeholders.title}</span>
             </div>
             <div className="flex items-center space-x-4">
               <Select value={lang} onValueChange={(value) => setLang(value as Language)}>
@@ -135,7 +140,7 @@ export default function App() {
               {filteredIgnios.map((iginio, index) => (
                 <Card key={index} className="transform transition-all duration-300 hover:scale-105 animate-fadeIn">
                   <CardHeader>
-                    <CardTitle className="flex items-center">
+                    <CardTitle className="flex items-center cursor-pointer" onClick={() => setSelectedIgnio(iginio)}>
                       {iginio.logo ? (
                         <img src={iginio.logo} alt={`${iginio.name} logo`} className="h-6 w-6 mr-2" />
                       ) : (
@@ -169,10 +174,11 @@ export default function App() {
                           {iginio.versions.map((version, vIndex) => (
                             <li key={vIndex} className="flex items-center justify-between">
                               <span>{version.version}</span>
-                              <Button variant="ghost" size="sm" onClick={() => handleDownload(version)}>
+                              <Button variant="ghost" size="sm" onClick={() => handleDownload(version)} data-tooltip-id={version.file.raw+version} data-tooltip-content={version.file.extra || version.file.raw.split("/").pop()} >
                                 <Download className="h-4 w-4 mr-2" />
                                 {GetLang(lang, "buttons.download")}
                               </Button>
+                              <Tooltip place="top-end" id = {version.file.raw+version} className="z-auto"/>
                             </li>
                           ))}
                         </ul>
@@ -195,22 +201,22 @@ export default function App() {
 
       <footer className="bg-red">
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 pl-2">
-        <div className="">
-          <h2 className="text-2xl font-bold text-gray-800 dark:text-black mb-4 text-center">{GetLang(lang, "faq.title")}</h2>
-          <h1 className="">
-            {GetLangArray(lang, "faq.items").map((item, index) => (
-              <Collapsible className="mt-4 container mx-auto">
-                <CollapsibleTrigger className="flex  justify-between w-full">
-                  <span className="font-semibold">{item.question}</span>
-                  <ChevronDown className="h-4 w-4" />
-                </CollapsibleTrigger>
-                <CollapsibleContent className="mt-2 transition-all duration-300 animate-fadeIn">
-                  <span> {item.answer}</span>
-                </CollapsibleContent>
-              </Collapsible>
-            ))}
-          </h1>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 pl-2">
+          <div className="">
+            <h2 className="text-2xl font-bold text-gray-800 dark:text-black mb-4 text-center">{GetLang(lang, "faq.title")}</h2>
+            <h1 className="">
+              {GetLangArray(lang, "faq.items").map((item, index) => (
+                <Collapsible className="mt-4 container mx-auto">
+                  <CollapsibleTrigger className="flex  justify-between w-full">
+                    <span className="font-semibold">{item.question}</span>
+                    <ChevronDown className="h-4 w-4" />
+                  </CollapsibleTrigger>
+                  <CollapsibleContent className="mt-2 transition-all duration-300 animate-fadeIn">
+                    <span> {item.answer}</span>
+                  </CollapsibleContent>
+                </Collapsible>
+              ))}
+            </h1>
           </div>
         </div>
       </footer>
@@ -231,7 +237,15 @@ export default function App() {
           <DialogDescription>
             <div className="flex flex-col space-y-4">
               <div className="relative w-full h-64">
-                <img src={selectedIgnio?.banner || '/placeholder.svg?height=200&width=400'} alt={`${selectedIgnio?.name} banner`} className="w-full h-full object-cover rounded-lg" />
+
+                {
+                  selectedIgnio?.logo ? (
+                    <img src={selectedIgnio?.logo} alt={`${selectedIgnio?.name} logo`} className="w-full h-full object-cover rounded-lg" />
+                  ) : (
+                    <div className="w-full h-full bg-gray-200 rounded-lg" />
+                  )
+                }
+
               </div>
               <p className="text-lg">{selectedIgnio?.description}</p>
               <div>
