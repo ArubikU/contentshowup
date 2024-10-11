@@ -1,7 +1,7 @@
 {
   "name": "contentshowup",
   "version": "5.0.0",
-  "homepage": "https://arubiku.github.io/ContentShowup",
+  "homepage": "https://arubiku.github.io/contentshowup",
   "private": false,
   "dependencies": {
     "@babel/core": "^7.25.8",
@@ -36,6 +36,7 @@
   "scripts": {
     "predeploy": "npm run build",
     "tail": "npx tailwindcss -i ./src/input.css -o ./src/index.css --watch",
+    "build-github": "HASH_ROUTER=true webpack",
     "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",

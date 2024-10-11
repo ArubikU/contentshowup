@@ -2,7 +2,7 @@ name: Add content
 description: Upload a proyect.
 title: "[Content]: "
 labels: ["addcontent"]
-projects: ["ContentShowup"]
+projects: ["contentshowup"]
 assignees:
   - ArubikU
 body:
@@ -57,7 +57,7 @@ body:
     id: terms
     attributes:
       label: Code of Conduct
-      description: By submitting this issue, you agree to follow our [License](https://github.com/ArubikU/ContentShowup/blob/main/LICENSE). 
+      description: By submitting this issue, you agree to follow our [License](https://github.com/ArubikU/contentshowup/blob/main/LICENSE). 
       options:
         - label: I agree to follow this project's Code of Conduct
           required: true

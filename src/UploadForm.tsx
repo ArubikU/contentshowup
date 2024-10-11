@@ -52,7 +52,7 @@ ${JSON.stringify(formData, null, 2)}
 
     const url = newGithubIssueUrl({
       user: 'arubiku',
-      repo: 'ContentShowup',
+      repo: 'contentshowup',
       template: 'addcontent',
       title: `New Content: ${formData.name}`,
       body: issueBody

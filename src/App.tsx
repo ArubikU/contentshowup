@@ -1,6 +1,6 @@
 import { ChevronDown, Download, ExternalLink, Github, Globe, Home, LibraryBig, Search, Upload, Users } from "lucide-react"
 import { useEffect, useState } from "react"
-import { Route, BrowserRouter as Router, Routes } from "react-router-dom"
+import { Route, Routes, useNavigate } from "react-router-dom"
 import { Tooltip } from 'react-tooltip'
 import { Badge, Button, Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle, Collapsible, CollapsibleContent, CollapsibleTrigger, Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, Input, Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./Components"
 import { Pack, mockPack } from "./Data"
@@ -66,8 +66,14 @@ export default function Component() {
 
   const loaders = Array.from(new Set(ignios.map(pack => pack.loader)))
 
+  const  navigate = useNavigate()
+  useEffect(() => {
+    navigate('/contentshowup/')
+  }
+  , [])
+
   return (
-    <Router>
+      <div>
       <div className="min-h-screen bg-gray-100 flex flex-col">
         <header className="bg-white shadow">
           <nav className="container mx-auto px-6 py-3">
@@ -92,21 +98,21 @@ export default function Component() {
                     ))}
                   </SelectContent>
                 </Select>
-                <a href="/catalog" className="text-gray-600 hover:text-gray-800 dark:text-gray-300 dark:hover:text-white">
+                <button onClick={() => navigate('/contentshowup/catalog/#')} className="text-gray-600 hover:text-gray-800 dark:text-gray-300 dark:hover:text-white">
                   <LibraryBig className="h-6 w-6 text-black" />
-                </a>
-                <a href="/members" className="text-gray-600 hover:text-gray-800 dark:text-gray-300 dark:hover:text-white">
+                </button>
+                <button onClick={() => navigate('/contentshowup/members/#')} className="text-gray-600 hover:text-gray-800 dark:text-gray-300 dark:hover:text-white">
                   <Users className="h-6 w-6 text-black" />
-                </a>
+                </button>
                 <a href={Placeholders.projectRepo} target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-gray-800 dark:text-gray-300 dark:hover:text-white">
                   <Github className="h-6 w-6 text-black" />
                 </a>
-                <a href="/upload" className="text-gray-600 hover:text-gray-800 dark:text-gray-300 dark:hover:text-white">
+                <button onClick={() => navigate('/contentshowup/upload/#')} className="text-gray-600 hover:text-gray-800 dark:text-gray-300 dark:hover:text-white">
                   <Upload className="h-6 w-6 text-black" />
-                </a>
-                <a href="/" className="text-gray-600 hover:text-gray-800 dark:text-gray-300 dark:hover:text-white">
+                </button>
+                <button onClick={() => navigate('/contentshowup/#')} className="text-gray-600 hover:text-gray-800 dark:text-gray-300 dark:hover:text-white">
                   <Home className="h-6 w-6 text-black" />
-                </a>
+                </button>
               </div>
             </div>
           </nav>
@@ -114,7 +120,7 @@ export default function Component() {
 
         <main className="container mx-auto px-6 py-8 flex-grow overflow-auto custom-scrollbar">
           <Routes>
-            <Route path="/" element={
+            <Route path="/contentshowup/" element={
               <p>
                 <section className="text-center mb-12">
                   <h1 className="text-4xl font-bold text-gray-800 dark:text-black mb-4">{GetLang(lang, "mainPage.title")}</h1>
@@ -124,7 +130,7 @@ export default function Component() {
               </p>
 
             } />
-            <Route path="/catalog" element={
+            <Route path="/contentshowup/catalog" element={
               <div>
                 <section>
                   <h2 className="text-2xl font-bold text-gray-800 dark:text-black mb-4">{GetLang(lang, "mainPage.disponibleContent")}</h2>
@@ -245,13 +251,13 @@ export default function Component() {
                 </section>
               </div>
             } />
-            <Route path="/members" element={<MembersSection packs={ignios} />} />
-            <Route path="/upload" element={<UploadForm lang={lang} />} />
+            <Route path="/contentshowup/members" element={<MembersSection packs={ignios} />} />
+            <Route path="/contentshowup/upload" element={<UploadForm lang={lang} />} />
           </Routes>
         </main>
 
         <Routes>
-          <Route path="/" element={
+          <Route path="/contentshowup/" element={
             <footer className="bg-red">
 
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 pl-2">
@@ -355,6 +361,6 @@ export default function Component() {
           packs={ignios}
         />
       </div>
-    </Router>
+    </div>
   )
 }

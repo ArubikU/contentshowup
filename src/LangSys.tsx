@@ -3,7 +3,8 @@ export const Placeholders = {
     author: "ArubikU",
     authorUrl: "https://github.com/arubiku",
     projectRepo: "https://github.com/vectrix-space/ignite",
-    contentPlural: "Ignios"
+    contentPlural: "Ignios",
+    repositoryWeb: "https://arubiku.github.io/contentshowup/"
 }
 
 export enum Language {
