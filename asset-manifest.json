@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/ignite-web/static/css/main.0778502f.css",
-    "main.js": "/ignite-web/static/js/main.082e3ecf.js",
+    "main.css": "/ignite-web/static/css/main.122a19f2.css",
+    "main.js": "/ignite-web/static/js/main.db3bbcba.js",
     "static/js/845.68e1e67b.chunk.js": "/ignite-web/static/js/845.68e1e67b.chunk.js",
     "index.html": "/ignite-web/index.html",
-    "main.0778502f.css.map": "/ignite-web/static/css/main.0778502f.css.map",
-    "main.082e3ecf.js.map": "/ignite-web/static/js/main.082e3ecf.js.map",
+    "main.122a19f2.css.map": "/ignite-web/static/css/main.122a19f2.css.map",
+    "main.db3bbcba.js.map": "/ignite-web/static/js/main.db3bbcba.js.map",
     "845.68e1e67b.chunk.js.map": "/ignite-web/static/js/845.68e1e67b.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.0778502f.css",
-    "static/js/main.082e3ecf.js"
+    "static/css/main.122a19f2.css",
+    "static/js/main.db3bbcba.js"
   ]
 }
