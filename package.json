@@ -1,7 +1,7 @@
 {
-  "name": "ignite-web",
+  "name": "contentshowup",
   "version": "5.0.0",
-  "homepage": "https://arubiku.github.io/ignite-web",
+  "homepage": "https://arubiku.github.io/ContentShowup",
   "private": false,
   "dependencies": {
     "@babel/core": "^7.25.8",
@@ -18,7 +18,7 @@
     "@types/react-dom": "^17.0.11",
     "babel-loader": "^9.2.1",
     "class-variance-authority": "^0.7.0",
-    "ignite-web": "file:",
+    "contentshowup": "file:",
     "lucide-react": "^0.451.0",
     "my-app": "file:",
     "patch-package": "^8.0.0",

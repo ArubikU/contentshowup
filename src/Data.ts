@@ -1,5 +1,5 @@
 
-export type Iginio = {
+export type Pack = {
     name: string
     repository: string
     description: string
@@ -16,7 +16,7 @@ export type Iginio = {
     banner?: string
     tags: string[]
   }
-export const mockIgnios: Iginio[] = [
+export const mockPack: Pack[] = [
     {
       name: "ExampleMod",
       repository: "https://github.com/example/examplemod",

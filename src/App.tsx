@@ -2,15 +2,15 @@ import { ChevronDown, Download, ExternalLink, Eye, Github, Globe, Search, Upload
 import { useEffect, useState } from "react"
 import { Tooltip } from 'react-tooltip'
 import { Badge, Button, Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle, Collapsible, CollapsibleContent, CollapsibleTrigger, Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, Input, Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./Components"
-import { Iginio, mockIgnios } from "./Data"
+import { Pack, mockPack } from "./Data"
 import { GetLang, GetLangArray, Language, Placeholders } from "./LangSys"
 export default function App() {
-  const [ignios, setIgnios] = useState<Iginio[]>([])
+  const [ignios, setIgnios] = useState<Pack[]>([])
   const [searchTerm, setSearchTerm] = useState("")
   const [selectedTags, setSelectedTags] = useState<string[]>([])
   const [showIgnios, setShowIgnios] = useState(false)
   const [lang, setLang] = useState<Language>(Language.en)
-  const [selectedIgnio, setSelectedIgnio] = useState<Iginio | null>(null)
+  const [selectedIgnio, setSelectedIgnio] = useState<Pack | null>(null)
 
   useEffect(() => {
     const clientLang = navigator.language.slice(0, 2)
@@ -20,14 +20,14 @@ export default function App() {
   }, [])
 
   const loadIgnios = () => {
-    setIgnios(mockIgnios)
+    setIgnios(mockPack)
   }
 
   useEffect(() => {
     loadIgnios()
   }, [])
 
-  const handleDownload = (version: Iginio['versions'][0]) => {
+  const handleDownload = (version: Pack['versions'][0]) => {
     if (version.file.type === "LINK") {
       // Open the link in a new tab
       window.open(version.file.raw, '_blank');
@@ -49,13 +49,13 @@ export default function App() {
     }
   };
   
-  const filteredIgnios = ignios.filter(iginio =>
-    (iginio.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      iginio.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()))) &&
-    (selectedTags.length === 0 || selectedTags.every(tag => iginio.tags.includes(tag)))
+  const filteredIgnios = ignios.filter(Pack =>
+    (Pack.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      Pack.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()))) &&
+    (selectedTags.length === 0 || selectedTags.every(tag => Pack.tags.includes(tag)))
   )
 
-  const allTags = Array.from(new Set(ignios.flatMap(iginio => iginio.tags)))
+  const allTags = Array.from(new Set(ignios.flatMap(Pack => Pack.tags)))
     .sort((a, b) => a.localeCompare(b))
 
   const isVersionTag = (tag: string) => /^\d+(\.\d+)*$/.test(tag)
@@ -137,30 +137,30 @@ export default function App() {
               </div>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {filteredIgnios.map((iginio, index) => (
+              {filteredIgnios.map((Pack, index) => (
                 <Card key={index} className="transform transition-all duration-300 hover:scale-105 animate-fadeIn">
                   <CardHeader>
-                    <CardTitle className="flex items-center cursor-pointer" onClick={() => setSelectedIgnio(iginio)}>
-                      {iginio.logo ? (
-                        <img src={iginio.logo} alt={`${iginio.name} logo`} className="h-6 w-6 mr-2" />
+                    <CardTitle className="flex items-center cursor-pointer" onClick={() => setSelectedIgnio(Pack)}>
+                      {Pack.logo ? (
+                        <img src={Pack.logo} alt={`${Pack.name} logo`} className="h-6 w-6 mr-2" />
                       ) : (
                         <div className="h-6 w-6 mr-2 bg-gray-200 rounded-full" />
                       )}
-                      {iginio.name}
+                      {Pack.name}
                     </CardTitle>
                     <CardDescription>
-                      <a href={iginio.repository} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:text-blue-600 dark:text-blue-400 dark:hover:text-blue-300">
+                      <a href={Pack.repository} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:text-blue-600 dark:text-blue-400 dark:hover:text-blue-300">
                         {GetLang(lang, "buttons.viewRepository")}
                       </a>
                     </CardDescription>
                   </CardHeader>
                   <CardContent>
-                    <p className="mb-4 line-clamp-3 cursor-pointer" onClick={() => setSelectedIgnio(iginio)}>
-                      <strong>{GetLang(lang, "placeholders.description")}</strong> {iginio.description}
+                    <p className="mb-4 line-clamp-3 cursor-pointer" onClick={() => setSelectedIgnio(Pack)}>
+                      <strong>{GetLang(lang, "placeholders.description")}</strong> {Pack.description}
                     </p>
-                    <p><strong>{GetLang(lang, "placeholders.author")}</strong> <a href={iginio.author} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:text-blue-600 dark:text-blue-400 dark:hover:text-blue-300">{GetLang(lang, "buttons.viewProfile")}</a></p>
+                    <p><strong>{GetLang(lang, "placeholders.author")}</strong> <a href={Pack.author} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:text-blue-600 dark:text-blue-400 dark:hover:text-blue-300">{GetLang(lang, "buttons.viewProfile")}</a></p>
                     <div className="flex flex-wrap gap-2 mt-2">
-                      {iginio.tags.map(tag => (
+                      {Pack.tags.map(tag => (
                         <Badge key={tag} variant="secondary" className={isVersionTag(tag) ? 'bg-green-200 text-green-800' : 'bg-orange-200 text-orange-800'}>{tag}</Badge>
                       ))}
                     </div>
@@ -171,7 +171,7 @@ export default function App() {
                       </CollapsibleTrigger>
                       <CollapsibleContent className="mt-2">
                         <ul className="space-y-2">
-                          {iginio.versions.map((version, vIndex) => (
+                          {Pack.versions.map((version, vIndex) => (
                             <li key={vIndex} className="flex items-center justify-between">
                               <span>{version.version}</span>
                               <Button variant="ghost" size="sm" onClick={() => handleDownload(version)} data-tooltip-id={version.file.raw+version} data-tooltip-content={version.file.extra || version.file.raw.split("/").pop()} >
@@ -186,8 +186,8 @@ export default function App() {
                     </Collapsible>
                   </CardContent>
                   <CardFooter>
-                    <Button variant="outline" className="w-full" onClick={() => handleDownload(iginio.versions[0])}>
-                      {GetLang(lang, "buttons.downloadLatest")} ({iginio.versions[0].version})
+                    <Button variant="outline" className="w-full" onClick={() => handleDownload(Pack.versions[0])}>
+                      {GetLang(lang, "buttons.downloadLatest")} ({Pack.versions[0].version})
                     </Button>
                   </CardFooter>
                 </Card>
