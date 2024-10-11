@@ -1,0 +1,14 @@
+diff --git a/node_modules/@radix-ui/react-arrow/dist/index.mjs b/node_modules/@radix-ui/react-arrow/dist/index.mjs
+index fec892c..e2744b2 100644
+--- a/node_modules/@radix-ui/react-arrow/dist/index.mjs
++++ b/node_modules/@radix-ui/react-arrow/dist/index.mjs
+@@ -1,7 +1,7 @@
+ // packages/react/arrow/src/Arrow.tsx
+-import * as React from "react";
+ import { Primitive } from "@radix-ui/react-primitive";
+-import { jsx } from "react/jsx-runtime";
++import * as React from "react";
++import { jsx } from "react/jsx-runtime.js";
+ var NAME = "Arrow";
+ var Arrow = React.forwardRef((props, forwardedRef) => {
+   const { children, width = 10, height = 5, ...arrowProps } = props;

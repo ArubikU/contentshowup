@@ -1,0 +1,54 @@
+diff --git a/node_modules/@radix-ui/react-popper/dist/index.mjs b/node_modules/@radix-ui/react-popper/dist/index.mjs
+index 1ae96b2..5c0a251 100644
+--- a/node_modules/@radix-ui/react-popper/dist/index.mjs
++++ b/node_modules/@radix-ui/react-popper/dist/index.mjs
+@@ -1,17 +1,16 @@
+ "use client";
+ 
+ // packages/react/popper/src/Popper.tsx
+-import * as React from "react";
+ import {
+-  useFloating,
+   autoUpdate,
++  flip,
++  arrow as floatingUIarrow,
++  hide,
++  limitShift,
+   offset,
+   shift,
+-  limitShift,
+-  hide,
+-  arrow as floatingUIarrow,
+-  flip,
+-  size
++  size,
++  useFloating
+ } from "@floating-ui/react-dom";
+ import * as ArrowPrimitive from "@radix-ui/react-arrow";
+ import { useComposedRefs } from "@radix-ui/react-compose-refs";
+@@ -20,7 +19,8 @@ import { Primitive } from "@radix-ui/react-primitive";
+ import { useCallbackRef } from "@radix-ui/react-use-callback-ref";
+ import { useLayoutEffect } from "@radix-ui/react-use-layout-effect";
+ import { useSize } from "@radix-ui/react-use-size";
+-import { jsx } from "react/jsx-runtime";
++import * as React from "react";
++import { jsx } from "react/jsx-runtime.js";
+ var SIDE_OPTIONS = ["top", "right", "bottom", "left"];
+ var ALIGN_OPTIONS = ["start", "center", "end"];
+ var POPPER_NAME = "Popper";
+@@ -291,13 +291,11 @@ export {
+   ALIGN_OPTIONS,
+   Anchor,
+   Arrow,
+-  Content,
+-  Popper,
++  Content, createPopperScope, Popper,
+   PopperAnchor,
+   PopperArrow,
+   PopperContent,
+   Root2 as Root,
+-  SIDE_OPTIONS,
+-  createPopperScope
++  SIDE_OPTIONS
+ };
+ //# sourceMappingURL=index.mjs.map

@@ -1,0 +1,19 @@
+diff --git a/node_modules/@radix-ui/react-portal/dist/index.mjs b/node_modules/@radix-ui/react-portal/dist/index.mjs
+index e0031e3..17d2fad 100644
+--- a/node_modules/@radix-ui/react-portal/dist/index.mjs
++++ b/node_modules/@radix-ui/react-portal/dist/index.mjs
+@@ -1,11 +1,11 @@
+ "use client";
+ 
+ // packages/react/portal/src/Portal.tsx
+-import * as React from "react";
+-import ReactDOM from "react-dom";
+ import { Primitive } from "@radix-ui/react-primitive";
+ import { useLayoutEffect } from "@radix-ui/react-use-layout-effect";
+-import { jsx } from "react/jsx-runtime";
++import * as React from "react";
++import ReactDOM from "react-dom";
++import { jsx } from "react/jsx-runtime.js";
+ var PORTAL_NAME = "Portal";
+ var Portal = React.forwardRef((props, forwardedRef) => {
+   const { container: containerProp, ...portalProps } = props;
