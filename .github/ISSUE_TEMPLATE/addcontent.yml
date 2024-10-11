@@ -1,0 +1,63 @@
+name: Add content
+description: Upload a proyect.
+title: "[Content]: "
+labels: ["triage"]
+projects: ["ContentShowup"]
+assignees:
+  - ArubikU
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this bug report!
+  - type: dropdown
+    id: version
+    attributes:
+      label: Version
+      description: For what version of Mc is?
+      options:
+        - 1.21.1 (Default)
+        - "1.21.0"
+        - "1.20.6"
+        - "1.20.5"
+        - "1.20.4"
+        - "1.20.2"
+        - "1.20.1"
+        - "1.19.4"
+      default: 0
+    validations:
+      required: true
+  - type: dropdown
+    id: Loader
+    attributes:
+      label: Loader
+      description: What loader of minecraft are you running?
+      options:
+        - Datapack (Default)
+        - Fabric
+        - Forge
+        - Ignite
+        - Resourcepack
+      default: 0
+    validations:
+      required: true
+  - type: textarea
+    id: json
+    attributes:
+      label: Data
+      description: Your json data goes here
+      render: shell
+  - id: tags
+    type: input
+    attributes:
+      label: Tags
+      description: Tags to help categorize your issue
+      placeholder: "e.g. bug, performance, etc."
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Code of Conduct
+      description: By submitting this issue, you agree to follow our [License](https://github.com/ArubikU/ContentShowup/blob/main/LICENSE). 
+      options:
+        - label: I agree to follow this project's Code of Conduct
+          required: true

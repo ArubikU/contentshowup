@@ -5,19 +5,20 @@ export const Placeholders = {
     projectRepo: "https://github.com/vectrix-space/ignite",
     contentPlural: "Ignios"
 }
+
 export enum Language {
     en = "en",
     es = "es",
-    fr = "fr", // French
-    ru = "ru", // Russian
+    fr = "fr",
+    ru = "ru",
 }
 
 type BaseLocale = {
     language: {
         en: string;
         es: string;
-        fr: string; // French
-        ru: string; // Russian
+        fr: string;
+        ru: string;
     };
     mainPage: {
         title: string;
@@ -34,6 +35,7 @@ type BaseLocale = {
     };
     search: {
         placeholder: string;
+        allLoaders: string;
     };
     placeholders: {
         description: string;
@@ -52,6 +54,34 @@ type BaseLocale = {
             question: string;
             answer: string;
         }>;
+    };
+    uploadForm: {
+        title: string;
+        description: string;
+        name: string;
+        repository: string;
+        versions: string;
+        versionPlaceholder: string;
+        fileUrlPlaceholder: string;
+        addVersion: string;
+        author: string;
+        tags: string;
+        loader: string;
+        selectLoader: string;
+        datapack: string;
+        fabric: string;
+        forge: string;
+        ignite: string;
+        resourcepack: string;
+        submit: string;
+    };
+    userDialog: {
+        title: string;
+        bio: string;
+        packsByAuthor: string;
+    };
+    membersSection: {
+        title: string;
     };
 };
 
@@ -82,11 +112,12 @@ const localizations: Locals = {
         },
         search: {
             placeholder: "Search for {contentPlural}...",
+            allLoaders: "All Loaders",
         },
         placeholders: {
             description: "Description:",
             author: "Author:",
-            disclaimer: "© 2024 Ignite web. Created by",
+            disclaimer: "© 2024 {title} web. Created by",
             versions: "Versions",
             tags: "Tags",
             links: "Links",
@@ -99,21 +130,49 @@ const localizations: Locals = {
             items: [
                 {
                     question: "What is {title}?",
-                    answer: "Ignite is a powerful Mod loader designed to enhance your gaming experience by allowing easy installation and management of game modifications."
+                    answer: "{title} is a powerful Mod loader designed to enhance your gaming experience by allowing easy installation and management of game modifications."
                 },
                 {
                     question: "How do I install {title}?",
-                    answer: "To install Ignite, simply download the latest version from our website and run the installer. Follow the on-screen instructions to complete the setup."
+                    answer: "To install {title}, simply download the latest version from our website and run the installer. Follow the on-screen instructions to complete the setup."
                 },
                 {
-                    question: "Is Ignite compatible with all games?",
-                    answer: "Ignite is designed to work with a wide range of games, but compatibility may vary. Check our compatibility list or the specific game's modding community for more information."
+                    question: "Is {title} compatible with all games?",
+                    answer: "{title} is designed to work with a wide range of games, but compatibility may vary. Check our compatibility list or the specific game's modding community for more information."
                 },
                 {
                     question: "How can I create mods for {title}?",
-                    answer: "We provide comprehensive documentation and tools for mod developers. Visit our developer portal to get started with creating mods for Ignite."
+                    answer: "We provide comprehensive documentation and tools for mod developers. Visit our developer portal to get started with creating mods for {title}."
                 },
             ],
+        },
+        uploadForm: {
+            title: "Add Content",
+            description: "Upload a project",
+            name: "Name",
+            repository: "Repository",
+            versions: "Versions",
+            versionPlaceholder: "Version",
+            fileUrlPlaceholder: "File URL",
+            addVersion: "Add Version",
+            author: "Author",
+            tags: "Tags (comma-separated)",
+            loader: "Loader",
+            selectLoader: "Select loader",
+            datapack: "Datapack",
+            fabric: "Fabric",
+            forge: "Forge",
+            ignite: "{title}",
+            resourcepack: "Resourcepack",
+            submit: "Submit",
+        },
+        userDialog: {
+            title: "User Profile",
+            bio: "Bio",
+            packsByAuthor: "Packs by this author:",
+        },
+        membersSection: {
+            title: "Members",
         },
     },
     es: {
@@ -138,11 +197,12 @@ const localizations: Locals = {
         },
         search: {
             placeholder: "Buscar {contentPlural}...",
+            allLoaders: "Todos los Cargadores",
         },
         placeholders: {
             description: "Descripción:",
             author: "Autor:",
-            disclaimer: "© 2024 Ignite web. Creado por",
+            disclaimer: "© 2024 {title} web. Creado por",
             versions: "Versiones",
             tags: "Etiquetas",
             links: "Enlaces",
@@ -155,21 +215,49 @@ const localizations: Locals = {
             items: [
                 {
                     question: "¿Qué es {title}?",
-                    answer: "Ignite es un potente cargador de Mods diseñado para mejorar tu experiencia de juego permitiendo una fácil instalación y gestión de modificaciones de juegos."
+                    answer: "{title} es un potente cargador de Mods diseñado para mejorar tu experiencia de juego permitiendo una fácil instalación y gestión de modificaciones de juegos."
                 },
                 {
                     question: "¿Cómo instalo {title}?",
-                    answer: "Para instalar Ignite, simplemente descarga la última versión desde nuestro sitio web y ejecuta el instalador. Sigue las instrucciones en pantalla para completar la configuración."
+                    answer: "Para instalar {title}, simplemente descarga la última versión desde nuestro sitio web y ejecuta el instalador. Sigue las instrucciones en pantalla para completar la configuración."
                 },
                 {
-                    question: "¿Es Ignite compatible con todos los juegos?",
-                    answer: "Ignite está diseñado para funcionar con una amplia gama de juegos, pero la compatibilidad puede variar. Consulta nuestra lista de compatibilidad o la comunidad de modding del juego específico para obtener más información."
+                    question: "¿Es {title} compatible con todos los juegos?",
+                    answer: "{title} está diseñado para funcionar con una amplia gama de juegos, pero la compatibilidad puede variar. Consulta nuestra lista de compatibilidad o la comunidad de modding del juego específico para obtener más información."
                 },
                 {
                     question: "¿Cómo puedo crear mods para {title}?",
-                    answer: "Proporcionamos documentación completa y herramientas para desarrolladores de mods. Visita nuestro portal de desarrolladores para comenzar a crear mods para Ignite."
+                    answer: "Proporcionamos documentación completa y herramientas para desarrolladores de mods. Visita nuestro portal de desarrolladores para comenzar a crear mods para {title}."
                 },
             ],
+        },
+        uploadForm: {
+            title: "Agregar Contenido",
+            description: "Subir un proyecto",
+            name: "Nombre",
+            repository: "Repositorio",
+            versions: "Versiones",
+            versionPlaceholder: "Versión",
+            fileUrlPlaceholder: "URL del archivo",
+            addVersion: "Agregar Versión",
+            author: "Autor",
+            tags: "Etiquetas (separadas por comas)",
+            loader: "Cargador",
+            selectLoader: "Seleccionar cargador",
+            datapack: "Datapack",
+            fabric: "Fabric",
+            forge: "Forge",
+            ignite: "{title}",
+            resourcepack: "Paquete de recursos",
+            submit: "Enviar",
+        },
+        userDialog: {
+            title: "Perfil de Usuario",
+            bio: "Biografía",
+            packsByAuthor: "Packs de este autor:",
+        },
+        membersSection: {
+            title: "Miembros",
         },
     },
     fr: {
@@ -194,11 +282,12 @@ const localizations: Locals = {
         },
         search: {
             placeholder: "Rechercher des {contentPlural}...",
+            allLoaders: "Tous les chargeurs",
         },
         placeholders: {
             description: "Description :",
             author: "Auteur :",
-            disclaimer: "© 2024 Ignite web. Créé par",
+            disclaimer: "© 2024 {title} web. Créé par",
             versions: "Versions",
             tags: "Étiquettes",
             links: "Liens",
@@ -210,22 +299,50 @@ const localizations: Locals = {
             title: "Questions Fréquemment Posées",
             items: [
                 {
-                    question: "Qu'est-ce qu'Ignite ?",
-                    answer: "Ignite est un puissant chargeur de mods conçu pour améliorer votre expérience de jeu en permettant une installation et une gestion faciles des modifications de jeu."
+                    question: "Qu'est-ce qu'{title} ?",
+                    answer: "{title} est un puissant chargeur de mods conçu pour améliorer votre expérience de jeu en permettant une installation et une gestion faciles des modifications de jeu."
                 },
                 {
-                    question: "Comment installer Ignite ?",
-                    answer: "Pour installer Ignite, téléchargez simplement la dernière version depuis notre site Web et exécutez l'installateur. Suivez les instructions à l'écran pour terminer l'installation."
+                    question: "Comment installer {title} ?",
+                    answer: "Pour installer {title}, téléchargez simplement la dernière version depuis notre site Web et exécutez l'installateur. Suivez les instructions à l'écran pour terminer l'installation."
                 },
                 {
-                    question: "Ignite est-il compatible avec tous les jeux ?",
-                    answer: "Ignite est conçu pour fonctionner avec une large gamme de jeux, mais la compatibilité peut varier. Consultez notre liste de compatibilité ou la communauté de modding du jeu spécifique pour plus d'informations."
+                    question: "{title} est-il compatible avec tous les jeux ?",
+                    answer: "{title} est conçu pour fonctionner avec une large gamme de jeux, mais la compatibilité peut varier. Consultez notre liste de compatibilité ou la communauté de modding du jeu spécifique pour plus d'informations."
                 },
                 {
                     question: "Comment puis-je créer des mods pour {title} ?",
-                    answer: "Nous fournissons une documentation complète et des outils pour les développeurs de mods. Visitez notre portail développeur pour commencer à créer des mods pour Ignite."
+                    answer: "Nous fournissons une documentation complète et des outils pour les développeurs de mods. Visitez notre portail développeur pour commencer à créer des mods pour {title}."
                 },
             ],
+        },
+        uploadForm: {
+            title: "Ajouter du Contenu",
+            description: "Télécharger un projet",
+            name: "Nom",
+            repository: "Dépôt",
+            versions: "Versions",
+            versionPlaceholder: "Version",
+            fileUrlPlaceholder: "URL du fichier",
+            addVersion: "Ajouter une Version",
+            author: "Auteur",
+            tags: "Étiquettes (séparées par des virgules)",
+            loader: "Chargeur",
+            selectLoader: "Sélectionner un chargeur",
+            datapack: "Datapack",
+            fabric: "Fabric",
+            forge: "Forge",
+            ignite: "{title}",
+            resourcepack: "Pack de ressources",
+            submit: "Soumettre",
+        },
+        userDialog: {
+            title: "Profil Utilisateur",
+            bio: "Biographie",
+            packsByAuthor: "Packs de cet auteur :",
+        },
+        membersSection: {
+            title: "Membres",
         },
     },
     ru: {
@@ -250,11 +367,12 @@ const localizations: Locals = {
         },
         search: {
             placeholder: "Поиск {contentPlural}...",
+            allLoaders: "Все загрузчики",
         },
         placeholders: {
             description: "Описание:",
             author: "Автор:",
-            disclaimer: "© 2024 Ignite web. Создано",
+            disclaimer: "© 2024 {title} web. Создано",
             versions: "Версии",
             tags: "Теги",
             links: "Ссылки",
@@ -267,25 +385,52 @@ const localizations: Locals = {
             items: [
                 {
                     question: "Что такое {title}?",
-                    answer: "Ignite — мощный мод-лоадер, разработанный для улучшения вашего игрового опыта, позволяющий легко устанавливать и управлять модификациями игр."
+                    answer: "{title} — мощный мод-лоадер, разработанный для улучшения вашего игрового опыта, позволяющий легко устанавливать и управлять модификациями игр."
                 },
                 {
                     question: "Как установить {title}?",
-                    answer: "Чтобы установить Ignite, просто загрузите последнюю версию с нашего веб-сайта и запустите установщик. Следуйте инструкциям на экране, чтобы завершить настройку."
+                    answer: "Чтобы установить {title}, просто загрузите последнюю версию с нашего веб-сайта и запустите установщик. Следуйте инструкциям на экране, чтобы завершить настройку."
                 },
                 {
-                    question: "Совместим ли Ignite со всеми играми?",
-                    answer: "Ignite предназначен для работы с широким спектром игр, но совместимость может варьироваться. Проверьте наш список совместимости или сообщество моддинга конкретной игры для получения дополнительной информации."
+                    question: "Совместим ли {title} со всеми играми?",
+                    answer: "{title} предназначен для работы с широким спектром игр, но совместимость может варьироваться. Проверьте наш список совместимости или сообщество моддинга конкретной игры для получения дополнительной информации."
                 },
                 {
-                    question: "Как создать моды для {title}?",
-                    answer: "Мы предоставляем полную документацию и инструменты для разработчиков модов. Посетите наш портал для разработчиков, чтобы начать создавать моды для Ignite."
+                    question:  "Как создать моды для {title}?",
+                    answer: "Мы предоставляем полную документацию и инструменты для разработчиков модов. Посетите наш портал для разработчиков, чтобы начать создавать моды для {title}."
                 },
             ],
         },
+        uploadForm: {
+            title: "Добавить Контент",
+            description: "Загрузить проект",
+            name: "Название",
+            repository: "Репозиторий",
+            versions: "Версии",
+            versionPlaceholder: "Версия",
+            fileUrlPlaceholder: "URL файла",
+            addVersion: "Добавить Версию",
+            author: "Автор",
+            tags: "Теги (через запятую)",
+            loader: "Загрузчик",
+            selectLoader: "Выберите загрузчик",
+            datapack: "Датапак",
+            fabric: "Fabric",
+            forge: "Forge",
+            ignite: "{title}",
+            resourcepack: "Ресурспак",
+            submit: "Отправить",
+        },
+        userDialog: {
+            title: "Профиль Пользователя",
+            bio: "Биография",
+            packsByAuthor: "Паки этого автора:",
+        },
+        membersSection: {
+            title: "Участники",
+        },
     },
 };
-
 
 const parsePlaceholders = (text: string) => {
     if (text === undefined){
@@ -321,6 +466,5 @@ export const GetLangArray = (lang: Language, langPath: string) => {
         }
     });
 
-    console.log(a)
     return a;
 }

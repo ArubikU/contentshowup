@@ -5,80 +5,6 @@ import * as React from "react"
 
 import { ReactNode, useEffect, useState } from 'react'
 
-interface AccordionProps {
-    children: React.ReactNode;
-    type?: "single" | "multiple"; // Para manejar si es de tipo single o multiple
-    collapsible?: boolean; // Opción para permitir colapsar los ítems
-}
-
-export const Accordion = ({ children, type = "single", collapsible = true }: AccordionProps) => {
-    const [openIndex, setOpenIndex] = useState<number | null>(null);
-
-    const toggleItem = (index: number) => {
-        if (type === "single") {
-            setOpenIndex(openIndex === index && collapsible ? null : index);
-        }
-    };
-
-    return (
-        <div>
-            {React.Children.map(children, (child, index) => {
-                if (React.isValidElement(child)) {
-                    return React.cloneElement(child, 
-                         openIndex === index,
-                        () => toggleItem(index),
-                    );
-                }
-                return child;
-            })}
-        </div>
-    );
-};
-
-interface AccordionItemProps {
-    children: React.ReactNode;
-    value: string;
-    isOpen?: boolean; // Esta propiedad la manejamos para saber si está abierto
-    onToggle?: () => void; // Esta propiedad la usamos para abrir o cerrar el acordeón
-}
-
-export const AccordionItem = ({ children, isOpen, onToggle }: AccordionItemProps) => {
-    const mappedChildren = React.Children.map(children, (child) => {
-        if (React.isValidElement(child)) {
-            if (child.type === AccordionTrigger) {
-                return React.cloneElement(child,  onToggle );
-            }
-            if (child.type === AccordionContent) {
-                return React.cloneElement(child,  isOpen );
-            }
-        }
-        return child;
-    });
-
-    return <div>{mappedChildren}</div>;
-};
-
-interface AccordionTriggerProps {
-    children: React.ReactNode;
-    onToggle?: () => void; // onToggle será opcional
-}
-
-export const AccordionTrigger = ({ children, onToggle }: AccordionTriggerProps) => {
-    return (
-        <button onClick={onToggle} style={{ width: "100%", textAlign: "left" }}>
-            {children}
-        </button>
-    );
-};
-
-interface AccordionContentProps {
-    children: React.ReactNode;
-    isOpen?: boolean; // isOpen determinará si mostramos o no el contenido
-}
-
-export const AccordionContent = ({ children, isOpen }: AccordionContentProps) => {
-    return isOpen ? <div>{children}</div> : null;
-};
 
 interface DialogProps {
     open: boolean
@@ -384,8 +310,68 @@ const SelectSeparator = React.forwardRef<
   />
 ))
 SelectSeparator.displayName = SelectPrimitive.Separator.displayName
+// Label Component
+export const Label = ({ htmlFor, children }: { htmlFor: string; children: React.ReactNode }) => {
+  return (
+    <label
+      htmlFor={htmlFor}
+      className="block text-sm font-medium text-gray-700 mb-1"
+    >
+      {children}
+    </label>
+  );
+};
 
-export {
-    Badge, Button, Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle, Collapsible, CollapsibleContent, CollapsibleTrigger, Input, Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectSeparator, SelectTrigger, SelectValue
+// TextArea Component
+const TextArea = React.forwardRef<
+  HTMLTextAreaElement,
+  React.TextareaHTMLAttributes<HTMLTextAreaElement>
+>(({ className, ...props }, ref) => {
+  return (
+    <textarea
+      className={`w-full px-3 py-2 text-gray-700 border rounded-lg focus:outline-none focus:border-blue-500 ${className}`}
+      ref={ref}
+      {...props}
+    />
+  );
+});
+
+TextArea.displayName = 'TextArea';
+
+interface CheckboxProps extends React.InputHTMLAttributes<HTMLInputElement> {
+  id: string;
+  name: string;
+  checked: boolean;
+  onCheckedChange: (checked: boolean) => void;
+  label?: string;
 }
+
+export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
+  ({ id, name, checked, onCheckedChange, label, className, ...props }, ref) => {
+    return (
+      <div className="flex items-center">
+        <input
+          type="checkbox"
+          id={id}
+          name={name}
+          checked={checked}
+          onChange={(e) => onCheckedChange(e.target.checked)}
+          className={`w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 focus:ring-2 ${className}`}
+          ref={ref}
+          {...props}
+        />
+        {label && (
+          <label htmlFor={id} className="ml-2 text-sm font-medium text-gray-900">
+            {label}
+          </label>
+        )}
+      </div>
+    );
+  }
+);
+
+Checkbox.displayName = 'Checkbox';
+export { Badge, Button, Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle, Collapsible, CollapsibleContent, CollapsibleTrigger, Input, Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectSeparator, SelectTrigger, SelectValue, TextArea }
+
+
 
