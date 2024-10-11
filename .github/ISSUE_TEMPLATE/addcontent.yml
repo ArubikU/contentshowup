@@ -1,7 +1,7 @@
 name: Add content
 description: Upload a proyect.
 title: "[Content]: "
-labels: ["triage"]
+labels: ["addcontent"]
 projects: ["ContentShowup"]
 assignees:
   - ArubikU
