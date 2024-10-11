@@ -1,5 +1,5 @@
 import { ChevronDown, Download, ExternalLink, Github, Globe, Home, LibraryBig, Search, Upload, Users } from "lucide-react"
-import { useEffect, useState } from "react"
+import React, { useEffect, useMemo, useState } from "react"
 import { Route, Routes, useNavigate } from "react-router-dom"
 import { Tooltip } from 'react-tooltip'
 import { Badge, Button, Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle, Collapsible, CollapsibleContent, CollapsibleTrigger, Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, Input, Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./Components"
@@ -17,16 +17,23 @@ export default function Component() {
   const [selectedIgnio, setSelectedIgnio] = useState<Pack | null>(null)
   const [selectedAuthor, setSelectedAuthor] = useState<string | null>(null)
   const [selectedLoader, setSelectedLoader] = useState<string | null>(null)
+  const [, forceUpdate] = React.useReducer(x => x + 1, 0)
 
   const [mockPack, setMockPack] = useState<Pack[]>([])
 
+  useMemo(()=>{
+
+    GetPackData(0,100,setMockPack,[],forceUpdate);
+  }, [])
+
   useEffect(() => {
-    GetPackData().then(data => setMockPack(data))
     const clientLang = navigator.language.slice(0, 2)
     if (Object.values(Language).includes(clientLang as Language)) {
       setLang(clientLang as Language)
     }
   }, [])
+  
+  console.log(mockPack)
 
   useEffect(() => {
     setIgnios(mockPack)

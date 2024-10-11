@@ -1,3 +1,4 @@
+import { Dispatch, SetStateAction } from "react"
 
 export type Pack = {
     name: string
@@ -23,17 +24,40 @@ export type Pack = {
 //starting from 0000-0000-0000-0000.json to 9999-9999-9999-9999.json
 //example 0000-0000-0000-0001.json 0000-0000-0000-0002.json  etc
 //each file contains a json object with the pack data
-export const GetPackData = async (minRequest= 0 ,maxRequests= 100) => {
-  const requests = [];
-
-  for (let i = minRequest; i < maxRequests; i++) {
-      const packNumber = i.toString().padStart(16, "0").match(/.{1,4}/g).join("-");
-      const request = fetch(`https://raw.githubusercontent.com/ArubikU/contentshowup/main/public/packs/${packNumber}.json`)
-          .then(res => (res.status === 200 ? res.json() : null))
-          .catch(error => console.error(`Error fetching pack ${packNumber}:`, error));
-      requests.push(request);
+export const GetPackData = async (
+  minRequest = 0, 
+  maxRequests = 100, 
+  update: Dispatch<SetStateAction<Pack[]>>, 
+  currentResults: Pack[] = [],
+  onEnd 
+) => {
+  update(currentResults);
+  onEnd()
+  if (minRequest >= maxRequests) {
+    // Si hemos llegado al límite, actualizamos con los resultados obtenidos
+    //force a render
+    return;
   }
 
-  const packData = (await Promise.all(requests)).filter(Boolean); // Filtra valores nulos
-  return packData;
+  const packNumber = minRequest.toString().padStart(16, "0").match(/.{1,4}/g).join("-");
+
+  try {
+    const res = await fetch(`https://raw.githubusercontent.com/ArubikU/contentshowup/main/public/packs/${packNumber}.json`);
+
+    if (res.status === 200) {
+      const data = await res.json();
+      currentResults.push(data); // Agrega los resultados obtenidos al array
+    } else {
+      console.warn(`Pack ${packNumber} not found (status: ${res.status})`);
+      // Detenemos la recursión si no se encuentra el archivo
+      return update(currentResults);
+    }
+  } catch (error) {
+    console.error(`Error fetching pack ${packNumber}:`, error);
+    // Detenemos la recursión si hay un error
+    return update(currentResults);
+  }
+
+  // Llamamos de nuevo a la función recursivamente con el siguiente pack
+  await GetPackData(minRequest + 1, maxRequests, update, currentResults,onEnd);
 };
