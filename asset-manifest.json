@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/ignite-web/static/css/main.77263226.css",
-    "main.js": "/ignite-web/static/js/main.f298a8d6.js",
-    "static/js/845.68e1e67b.chunk.js": "/ignite-web/static/js/845.68e1e67b.chunk.js",
-    "index.html": "/ignite-web/index.html",
-    "main.77263226.css.map": "/ignite-web/static/css/main.77263226.css.map",
-    "main.f298a8d6.js.map": "/ignite-web/static/js/main.f298a8d6.js.map",
-    "845.68e1e67b.chunk.js.map": "/ignite-web/static/js/845.68e1e67b.chunk.js.map"
+    "main.css": "/ContentShowup/static/css/main.77263226.css",
+    "main.js": "/ContentShowup/static/js/main.51b295e0.js",
+    "static/js/845.1b68a759.chunk.js": "/ContentShowup/static/js/845.1b68a759.chunk.js",
+    "index.html": "/ContentShowup/index.html",
+    "main.77263226.css.map": "/ContentShowup/static/css/main.77263226.css.map",
+    "main.51b295e0.js.map": "/ContentShowup/static/js/main.51b295e0.js.map",
+    "845.1b68a759.chunk.js.map": "/ContentShowup/static/js/845.1b68a759.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.77263226.css",
-    "static/js/main.f298a8d6.js"
+    "static/js/main.51b295e0.js"
   ]
 }
