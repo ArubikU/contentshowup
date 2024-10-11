@@ -1,6 +1,7 @@
+import { X } from 'lucide-react'
 import newGithubIssueUrl from 'new-github-issue-url'
 import { useState } from 'react'
-import { Button, Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle, Input, Label, Select, SelectContent, SelectItem, SelectTrigger, SelectValue, TextArea } from "./Components"
+import { Button, Card, CardContent, CardFooter, CardHeader, CardTitle, Input, Label, Select, SelectContent, SelectItem, SelectTrigger, SelectValue, TextArea } from "./Components"
 import { Pack } from './Data'
 import { GetLang, Language } from "./LangSys"
 
@@ -28,6 +29,16 @@ export default function UploadForm({ lang }: UploadFormProps) {
     setFormData(prev => {
       const newVersions = [...(prev.versions || [])]
       newVersions[index] = { ...newVersions[index], [field]: field === 'file' ? { type: 'LINK', raw: value } : value }
+      return { ...prev, versions: newVersions }
+    })
+  }
+
+  const handleRemoveVersion = (index: number) => {
+    setFormData(prev => {
+      const newVersions = [...(prev.versions || [])]
+      if (newVersions.length > 1) {
+        newVersions.splice(index, 1)
+      }
       return { ...prev, versions: newVersions }
     })
   }
@@ -76,7 +87,6 @@ ${JSON.stringify(formData, null, 2)}
     <Card className="w-full max-w-2xl mx-auto">
       <CardHeader>
         <CardTitle>{GetLang(lang, "uploadForm.title")}</CardTitle>
-        <CardDescription>{GetLang(lang, "uploadForm.description")}</CardDescription>
       </CardHeader>
       <form onSubmit={handleSubmit}>
         <CardContent className="space-y-4">
@@ -113,7 +123,7 @@ ${JSON.stringify(formData, null, 2)}
           <div className="space-y-2">
             <p>{GetLang(lang, "uploadForm.versions")}</p>
             {formData.versions?.map((version, index) => (
-              <div key={index} className="flex space-x-2">
+              <div key={index} className="flex space-x-2 items-center">
                 <Input
                   placeholder={GetLang(lang, "uploadForm.versionPlaceholder")}
                   value={version.version}
@@ -124,6 +134,15 @@ ${JSON.stringify(formData, null, 2)}
                   value={version.file.raw}
                   onChange={(e) => handleVersionChange(index, 'file', e.target.value)}
                 />
+                {formData.versions.length > 1 && (
+                  <Button
+                    type="button"
+                    className="text-black-700 hover:text-black-900"
+                    onClick={() => handleRemoveVersion(index)}
+                  >
+                    <X></X>
+                  </Button>
+                )}
               </div>
             ))}
             <Button type="button" onClick={() => setFormData(prev => ({ ...prev, versions: [...(prev.versions || []), { version: '', file: { type: 'LINK', raw: '' } }] }))}>
@@ -166,7 +185,7 @@ ${JSON.stringify(formData, null, 2)}
           </div>
         </CardContent>
         <CardFooter>
-          <Button type="submit" className=" hover:bg-white">{GetLang(lang, "uploadForm.submit")}</Button>
+          <Button type="submit" className="hover:bg-white">{GetLang(lang, "uploadForm.submit")}</Button>
         </CardFooter>
       </form>
     </Card>
