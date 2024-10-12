@@ -17,6 +17,7 @@ export type Pack = {
     banner?: string
     tags: string[]
     loader?: string
+    shortDesc: string
   }
 
 //get all files from the https://github.com/ArubikU/contentshowup/tree/main/public/packs

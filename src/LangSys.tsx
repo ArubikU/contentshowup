@@ -1,3 +1,8 @@
+import { ENGLISH } from "./langs/en";
+import { SPANISH } from "./langs/es";
+import { FRENCH } from "./langs/fr";
+import { RUSSIAN } from "./langs/ru";
+
 export const Placeholders = {
     title: "Ignite",
     author: "ArubikU",
@@ -14,7 +19,7 @@ export enum Language {
     ru = "ru",
 }
 
-type BaseLocale = {
+export type BaseLocale = {
     language: {
         en: string;
         es: string;
@@ -59,6 +64,7 @@ type BaseLocale = {
     uploadForm: {
         title: string;
         description: string;
+        shortdescription: string;
         name: string;
         repository: string;
         versions: string;
@@ -75,6 +81,8 @@ type BaseLocale = {
         ignite: string;
         resourcepack: string;
         submit: string;
+        logo: string;
+        banner: string;
     };
     userDialog: {
         title: string;
@@ -91,346 +99,10 @@ type Locals = {
 };
 
 const localizations: Locals = {
-    en: {
-        language: {
-            en: "English",
-            es: "Spanish",
-            fr: "French",
-            ru: "Russian",
-        },
-        mainPage: {
-            title: "Welcome to {title}",
-            subtitle: "The powerful Mod loader for your gaming needs",
-            disponibleContent: "Available {contentPlural}",
-        },
-        buttons: {
-            showContent: "Show {contentPlural}",
-            hideContent: "Hide {contentPlural}",
-            viewRepository: "View Repository",
-            viewProfile: "View Profile",
-            downloadLatest: "Download Latest",
-            download: "Download",
-        },
-        search: {
-            placeholder: "Search for {contentPlural}...",
-            allLoaders: "All Loaders",
-        },
-        placeholders: {
-            description: "Description:",
-            author: "Author:",
-            disclaimer: "© 2024 {title} web. Created by",
-            versions: "Versions",
-            tags: "Tags",
-            links: "Links",
-            comments: "Comments",
-            commentsComingSoon: "Comment section coming soon",
-            selectVersion: "Select a version",
-        },
-        faq: {
-            title: "Frequently Asked Questions",
-            items: [
-                {
-                    question: "What is {title}?",
-                    answer: "{title} is a powerful Mod loader designed to enhance your gaming experience by allowing easy installation and management of game modifications."
-                },
-                {
-                    question: "How do I install {title}?",
-                    answer: "To install {title}, simply download the latest version from our website and run the installer. Follow the on-screen instructions to complete the setup."
-                },
-                {
-                    question: "Is {title} compatible with all games?",
-                    answer: "{title} is designed to work with a wide range of games, but compatibility may vary. Check our compatibility list or the specific game's modding community for more information."
-                },
-                {
-                    question: "How can I create mods for {title}?",
-                    answer: "We provide comprehensive documentation and tools for mod developers. Visit our developer portal to get started with creating mods for {title}."
-                },
-            ],
-        },
-        uploadForm: {
-            title: "Add Content",
-            description: "Description",
-            name: "Name",
-            repository: "Repository",
-            versions: "Versions",
-            versionPlaceholder: "Version",
-            fileUrlPlaceholder: "File URL",
-            addVersion: "Add Version",
-            author: "Author",
-            tags: "Tags (comma-separated)",
-            loader: "Loader",
-            selectLoader: "Select loader",
-            datapack: "Datapack",
-            fabric: "Fabric",
-            forge: "Forge",
-            ignite: "{title}",
-            resourcepack: "Resourcepack",
-            submit: "Submit",
-        },
-        userDialog: {
-            title: "User Profile",
-            bio: "Bio",
-            packsByAuthor: "Packs by this author:",
-        },
-        membersSection: {
-            title: "Members",
-        },
-    },
-    es: {
-        language: {
-            en: "Inglés",
-            es: "Español",
-            fr: "Francés",
-            ru: "Ruso",
-        },
-        mainPage: {
-            title: "Bienvenido a {title}",
-            subtitle: "El cargador de Mods más útil para ti.",
-            disponibleContent: "{contentPlural} disponibles",
-        },
-        buttons: {
-            showContent: "Mostrar {contentPlural}",
-            hideContent: "Ocultar {contentPlural}",
-            viewRepository: "Ver Repositorio",
-            viewProfile: "Ver Perfil",
-            downloadLatest: "Descargar Última Versión",
-            download: "Descargar",
-        },
-        search: {
-            placeholder: "Buscar {contentPlural}...",
-            allLoaders: "Todos los Cargadores",
-        },
-        placeholders: {
-            description: "Descripción:",
-            author: "Autor:",
-            disclaimer: "© 2024 {title} web. Creado por",
-            versions: "Versiones",
-            tags: "Etiquetas",
-            links: "Enlaces",
-            comments: "Comentarios",
-            commentsComingSoon: "Sección de comentarios próximamente",
-            selectVersion: "Selecciona una versión",
-        },
-        faq: {
-            title: "Preguntas Frecuentes",
-            items: [
-                {
-                    question: "¿Qué es {title}?",
-                    answer: "{title} es un potente cargador de Mods diseñado para mejorar tu experiencia de juego permitiendo una fácil instalación y gestión de modificaciones de juegos."
-                },
-                {
-                    question: "¿Cómo instalo {title}?",
-                    answer: "Para instalar {title}, simplemente descarga la última versión desde nuestro sitio web y ejecuta el instalador. Sigue las instrucciones en pantalla para completar la configuración."
-                },
-                {
-                    question: "¿Es {title} compatible con todos los juegos?",
-                    answer: "{title} está diseñado para funcionar con una amplia gama de juegos, pero la compatibilidad puede variar. Consulta nuestra lista de compatibilidad o la comunidad de modding del juego específico para obtener más información."
-                },
-                {
-                    question: "¿Cómo puedo crear mods para {title}?",
-                    answer: "Proporcionamos documentación completa y herramientas para desarrolladores de mods. Visita nuestro portal de desarrolladores para comenzar a crear mods para {title}."
-                },
-            ],
-        },
-        uploadForm: {
-            title: "Agregar Contenido",
-            description: "Descripción",
-            name: "Nombre",
-            repository: "Repositorio",
-            versions: "Versiones",
-            versionPlaceholder: "Versión",
-            fileUrlPlaceholder: "URL del archivo",
-            addVersion: "Agregar Versión",
-            author: "Autor",
-            tags: "Etiquetas (separadas por comas)",
-            loader: "Cargador",
-            selectLoader: "Seleccionar cargador",
-            datapack: "Datapack",
-            fabric: "Fabric",
-            forge: "Forge",
-            ignite: "{title}",
-            resourcepack: "Paquete de recursos",
-            submit: "Enviar",
-        },
-        userDialog: {
-            title: "Perfil de Usuario",
-            bio: "Biografía",
-            packsByAuthor: "Packs de este autor:",
-        },
-        membersSection: {
-            title: "Miembros",
-        },
-    },
-    fr: {
-        language: {
-            en: "Anglais",
-            es: "Espagnol",
-            fr: "Français",
-            ru: "Russe",
-        },
-        mainPage: {
-            title: "Bienvenue à {title}",
-            subtitle: "Le puissant chargeur de mods pour vos besoins de jeu",
-            disponibleContent: "{contentPlural} disponibles",
-        },
-        buttons: {
-            showContent: "Afficher {contentPlural}",
-            hideContent: "Masquer {contentPlural}",
-            viewRepository: "Voir le dépôt",
-            viewProfile: "Voir le profil",
-            downloadLatest: "Télécharger la dernière version",
-            download: "Télécharger",
-        },
-        search: {
-            placeholder: "Rechercher des {contentPlural}...",
-            allLoaders: "Tous les chargeurs",
-        },
-        placeholders: {
-            description: "Description :",
-            author: "Auteur :",
-            disclaimer: "© 2024 {title} web. Créé par",
-            versions: "Versions",
-            tags: "Étiquettes",
-            links: "Liens",
-            comments: "Commentaires",
-            commentsComingSoon: "Section de commentaires à venir",
-            selectVersion: "Sélectionnez une version",
-        },
-        faq: {
-            title: "Questions Fréquemment Posées",
-            items: [
-                {
-                    question: "Qu'est-ce qu'{title} ?",
-                    answer: "{title} est un puissant chargeur de mods conçu pour améliorer votre expérience de jeu en permettant une installation et une gestion faciles des modifications de jeu."
-                },
-                {
-                    question: "Comment installer {title} ?",
-                    answer: "Pour installer {title}, téléchargez simplement la dernière version depuis notre site Web et exécutez l'installateur. Suivez les instructions à l'écran pour terminer l'installation."
-                },
-                {
-                    question: "{title} est-il compatible avec tous les jeux ?",
-                    answer: "{title} est conçu pour fonctionner avec une large gamme de jeux, mais la compatibilité peut varier. Consultez notre liste de compatibilité ou la communauté de modding du jeu spécifique pour plus d'informations."
-                },
-                {
-                    question: "Comment puis-je créer des mods pour {title} ?",
-                    answer: "Nous fournissons une documentation complète et des outils pour les développeurs de mods. Visitez notre portail développeur pour commencer à créer des mods pour {title}."
-                },
-            ],
-        },
-        uploadForm: {
-            title: "Ajouter du Contenu",
-            description: "Description",
-            name: "Nom",
-            repository: "Dépôt",
-            versions: "Versions",
-            versionPlaceholder: "Version",
-            fileUrlPlaceholder: "URL du fichier",
-            addVersion: "Ajouter une Version",
-            author: "Auteur",
-            tags: "Étiquettes (séparées par des virgules)",
-            loader: "Chargeur",
-            selectLoader: "Sélectionner un chargeur",
-            datapack: "Datapack",
-            fabric: "Fabric",
-            forge: "Forge",
-            ignite: "{title}",
-            resourcepack: "Pack de ressources",
-            submit: "Soumettre",
-        },
-        userDialog: {
-            title: "Profil Utilisateur",
-            bio: "Biographie",
-            packsByAuthor: "Packs de cet auteur :",
-        },
-        membersSection: {
-            title: "Membres",
-        },
-    },
-    ru: {
-        language: {
-            en: "Английский",
-            es: "Испанский",
-            fr: "Французский",
-            ru: "Русский",
-        },
-        mainPage: {
-            title: "Добро пожаловать в {title}",
-            subtitle: "Мощный мод-лоадер для ваших игровых нужд",
-            disponibleContent: "Доступные {contentPlural}",
-        },
-        buttons: {
-            showContent: "Показать {contentPlural}",
-            hideContent: "Скрыть {contentPlural}",
-            viewRepository: "Просмотреть репозиторий",
-            viewProfile: "Просмотреть профиль",
-            downloadLatest: "Скачать последнюю версию",
-            download: "Скачать",
-        },
-        search: {
-            placeholder: "Поиск {contentPlural}...",
-            allLoaders: "Все загрузчики",
-        },
-        placeholders: {
-            description: "Описание:",
-            author: "Автор:",
-            disclaimer: "© 2024 {title} web. Создано",
-            versions: "Версии",
-            tags: "Теги",
-            links: "Ссылки",
-            comments: "Комментарии",
-            commentsComingSoon: "Раздел комментариев скоро появится",
-            selectVersion: "Выберите версию",
-        },
-        faq: {
-            title: "Часто задаваемые вопросы",
-            items: [
-                {
-                    question: "Что такое {title}?",
-                    answer: "{title} — мощный мод-лоадер, разработанный для улучшения вашего игрового опыта, позволяющий легко устанавливать и управлять модификациями игр."
-                },
-                {
-                    question: "Как установить {title}?",
-                    answer: "Чтобы установить {title}, просто загрузите последнюю версию с нашего веб-сайта и запустите установщик. Следуйте инструкциям на экране, чтобы завершить настройку."
-                },
-                {
-                    question: "Совместим ли {title} со всеми играми?",
-                    answer: "{title} предназначен для работы с широким спектром игр, но совместимость может варьироваться. Проверьте наш список совместимости или сообщество моддинга конкретной игры для получения дополнительной информации."
-                },
-                {
-                    question:  "Как создать моды для {title}?",
-                    answer: "Мы предоставляем полную документацию и инструменты для разработчиков модов. Посетите наш портал для разработчиков, чтобы начать создавать моды для {title}."
-                },
-            ],
-        },
-        uploadForm: {
-            title: "Добавить Контент",
-            description: "Загрузить проект",
-            name: "Название",
-            repository: "Репозиторий",
-            versions: "Версии",
-            versionPlaceholder: "Версия",
-            fileUrlPlaceholder: "URL файла",
-            addVersion: "Добавить Версию",
-            author: "Автор",
-            tags: "Теги (через запятую)",
-            loader: "Загрузчик",
-            selectLoader: "Выберите загрузчик",
-            datapack: "Датапак",
-            fabric: "Fabric",
-            forge: "Forge",
-            ignite: "{title}",
-            resourcepack: "Ресурспак",
-            submit: "Отправить",
-        },
-        userDialog: {
-            title: "Профиль Пользователя",
-            bio: "Биография",
-            packsByAuthor: "Паки этого автора:",
-        },
-        membersSection: {
-            title: "Участники",
-        },
-    },
+    en: ENGLISH,
+    es: SPANISH,
+    fr: FRENCH,
+    ru: RUSSIAN,
 };
 
 const parsePlaceholders = (text: string) => {

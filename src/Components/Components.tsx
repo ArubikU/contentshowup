@@ -315,7 +315,7 @@ export const Label = ({ htmlFor, children }: { htmlFor: string; children: React.
   return (
     <label
       htmlFor={htmlFor}
-      className="block text-sm font-medium text-gray-700 mb-1"
+      className="block text-sm font-medium text-gray-700 mb-1 text-gray-700 dark:text-white"
     >
       {children}
     </label>

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
+import { Pack } from "../Data"
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "./Components"
-import { Pack } from "./Data"
 
 type UserDialogProps = {
   isOpen: boolean
@@ -26,67 +26,50 @@ export function UserDialog({ isOpen, onClose, authorUrl, packs }: UserDialogProp
   const authorPacks = packs.filter(pack => pack.author === authorUrl)
 
   const getLogoUrl = (author: string) => {
-    //if github url
     if (author.includes('github')) {
       const authorName = author.split('/').pop()
       return "https://avatars.githubusercontent.com/" + authorName
     }
-    //if twitter url
     if (author.includes('twitter')) {
       const authorName = author.split('/').pop()
       return "https://unavatar.vercel.app/twitter/" + authorName
     }
-    //if linkedin url
     if (author.includes('linkedin')) {
       const authorName = author.split('/').pop()
       return "https://unavatar.vercel.app/linkedin/" + authorName
     }
-    //if modrinth url
-    //https://api.modrinth.com/v2/user/{id|username}
     if (author.includes('modrinth')) {
       const authorName = author.split('/').pop()
-      //fetch(`https://api.modrinth.com/v2/user/${authorName}`) parse json and get avatar_url
       let output = ""
       fetch(`https://api.modrinth.com/v2/user/${authorName}`)
       .then(res => res.json())
       .then(data => output = data.avatar_url)
       .catch(err => console.error("Error fetching user data:", err))
       return output
-
     }
-
   }
 
   const getLogoComponent = (author: string) => {
     let logoUrl = getLogoUrl(author)
     if (logoUrl) {
-      //verify if is valid image parsing the url
-      fetch(logoUrl)
-      .then(res => res.blob())
-      .then(blob => {
-        let isValid = blob.type.startsWith('image')
-        if (!isValid) {
-          return <div className="h-24 w-24 mr-2 bg-gray-200 rounded-full" />
-        }
-      })
-     
-      return <img src={logoUrl} alt={author} className="w-10 h-10 rounded-full" />
-    }else{
-      return <div className="h-24 w-24 mr-2 bg-gray-200 rounded-full" />
+      return <img src={logoUrl} alt={author} className="w-24 h-24 rounded-full" />
+    } else {
+      return <div className="h-24 w-24 mr-2 bg-gray-200 dark:bg-gray-600 rounded-full" />
     }
   }
+
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent>
+      <DialogContent className="bg-white dark:bg-gray-800 text-gray-900 dark:text-white">
         <DialogHeader>
-          <DialogTitle>{userData?.name || "User"}</DialogTitle>
+          <DialogTitle><p className="text-gray-900 dark:text-white">{userData?.name || "User"}</p></DialogTitle>
         </DialogHeader>
         {userData && (
           <div className="flex flex-col space-y-4">
             {getLogoComponent(authorUrl)}
-            <p>{userData.bio}</p>
-            <h3 className="text-lg font-semibold">Packs by this author:</h3>
-            <ul>
+            <p className="duration-300 animate-fadeIn text-gray-700 dark:text-gray-300">{userData.bio}</p>
+            <h3 className="text-lg font-semibold duration-300 animate-fadeIn text-gray-900 dark:text-white">Packs by this author:</h3>
+            <ul className="duration-300 animate-fadeIn text-gray-700 dark:text-gray-300">
               {authorPacks.map(pack => (
                 <li key={pack.name}>{pack.name}</li>
               ))}
