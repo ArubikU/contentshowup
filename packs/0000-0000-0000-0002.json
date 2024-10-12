@@ -1,0 +1,22 @@
+{
+  "name": "Just Normal Cats",
+  "repository": "https://modrinth.com/resourcepack/just-normal-cats",
+  "description": "# Just Normal Cats\n\n![Optifine or EMF-ETF](https://i.postimg.cc/7Lbrw6Py/Model-Mod-Needed.png)\n**Optifine** or **ETF+EMF** Needed\n\n\n\nThis texture pack changes the texture and model of the cat to a better and new look\nAlso makes changes to the ocelot\n\n## **Just Normal Cats [Plus]** adds Animations!\n<iframe width=\"560\" height=\"315\" src=\"https://www.youtube-nocookie.com/embed/BjmviS2szbI\" title=\"YouTube video player\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" allowfullscreen></iframe>\n\n### Here are all the Cats:\n\n- Calico\n> ![Calico](https://media.forgecdn.net/attachments/description/805811/description_9ed7c44b-8b19-4407-81b4-958c8edce14a.png)\n\n- Black\n> ![Black](https://media.forgecdn.net/attachments/description/805811/description_1e82a261-6eeb-4609-a051-d8c453deff4c.png)\n\n- All Black\n> ![AllBlack](https://media.forgecdn.net/attachments/description/805811/description_e015587e-ffc8-4ca3-b0c3-818d77b86e09.png)\n\n- British Shorthair\n> ![BritishShorthair](https://media.forgecdn.net/attachments/description/805811/description_8ef429f5-ddd2-4a3b-adc0-38f1d5424dab.png)\n\n- Ragdoll\n> ![Ragdoll](https://media.forgecdn.net/attachments/description/805811/description_42c278d3-5177-4f57-b30c-d176f72eba6b.png)\n\n- Persian\n> ![Persian](https://media.forgecdn.net/attachments/description/805811/description_543461f8-576c-4c21-9006-b11509beddac.png)\n\n- Red\n> ![Red](https://media.forgecdn.net/attachments/description/805811/description_44c346a0-de88-41f3-82a3-27f9b7b8751d.png)\n\n- Siamese\n> ![Siamese](https://media.forgecdn.net/attachments/description/805811/description_abd9da3d-1850-421c-ad45-8040301eb692.png)\n\n- Tabby\n> ![Tabby](https://media.forgecdn.net/attachments/description/805811/description_816c28ec-20cb-4f05-ac55-bbfb99e10f94.png)\n\n- White\n> ![White](https://media.forgecdn.net/attachments/description/805811/description_ba801a01-3692-4369-84d3-159900b44a42.png)\n\n- Ocelot\n> ![Ocelot](https://media.forgecdn.net/attachments/description/805811/description_20afaae7-ff7f-4d0f-83a8-6991498bd9ec.png)",
+  "versions": [
+    {
+      "version": "1.21.1",
+      "file": {
+        "type": "LINK",
+        "raw": "https://cdn.modrinth.com/data/gwcyE739/versions/20wkcLsB/Just%20Normal%20Cats%20v1.0%20%C2%A76%C2%A7l%5BPlus%5D.zip"
+      }
+    }
+  ],
+  "author": "SR400X",
+  "tags": [
+    "Optifine",
+    "1.21"
+  ],
+  "loader": "Resourcepack",
+  "logo": "https://cdn.modrinth.com/data/gwcyE739/6e1a0d2345e0e9e25904717d11ea713225d0b773_96.webp",
+  "banner": ""
+}
