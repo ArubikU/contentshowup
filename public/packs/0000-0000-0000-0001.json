@@ -1,7 +1,7 @@
 {
   "name": "ExampleMod",
   "repository": "https://github.com/example/examplemod",
-  "description": "This is an example mod that showcases various features of Ignite.",
+  "description": "This is an example mod that showcases various features of Ignite.\n **Markdown Test** \nThis is [an example](http://example.com/) inline link.\n\n[This link](http://example.net/) has no title attribute.\n\n### Emphasis\n\nMarkdown treats asterisks (`*`) and underscores (`_`) as indicators of\nemphasis. Text wrapped with one `*` or `_` will be wrapped with an\nHTML `<em>` tag; double `*`'s or `_`'s will be wrapped with an HTML\n`<strong>` tag. E.g., this input:\n\n*single asterisks*\n\n_single underscores_\n\n**double asterisks**\n\n__double underscores__\n\n### Code\n\nTo indicate a span of code, wrap it with backtick quotes (`` ` ``).\nUnlike a pre-formatted code block, a code span indicates code within a\nnormal paragraph. For example:\n\nUse the `printf()` function.",
   "loader": "ignite",
   "versions": [
     {
