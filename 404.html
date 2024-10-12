@@ -12,6 +12,11 @@
     <script>
       // Redirect to the specified URL after a short delay
       window.onload = function() {
+        // Cache the extra part of the URL
+        let currentPath = window.location.pathname + window.location.search + window.location.hash;
+        // Store it in localStorage
+        localStorage.setItem("redirectedPath", currentPath);
+        // Redirect to the new URL
         window.location.href = "https://arubiku.github.io/contentshowup/";
       };
     </script>
