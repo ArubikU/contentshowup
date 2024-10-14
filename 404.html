@@ -1,29 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#000000" />
-    <meta name="description" content="Page not found. Redirecting..." />
-    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-    <title>404 Not Found</title>
-    <script>
-      // Redirect to the specified URL after a short delay
-      window.onload = function() {
-        // Cache the extra part of the URL
-        let currentPath = window.location.pathname + window.location.search + window.location.hash;
-        // Store it in localStorage
-        localStorage.setItem("redirectedPath", currentPath);
-        // Redirect to the new URL
-        window.location.href = "https://arubiku.github.io/contentshowup/";
-      };
-    </script>
-  </head>
-  <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
-    <p>Page not found. Redirecting...</p>
-  </body>
-</html>
+<head>
+  <meta charset="utf-8" />
+  <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#000000" />
+  <meta name="description" content="Page not found. Redirecting..." />
+  <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+  <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+  <title>404 Not Found</title>
+  <style>
+    body {
+      background-color: #121212;
+      color: #ffffff;
+      font-family: 'Arial', sans-serif;
+      text-align: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      overflow: hidden;
+    }
+    #redirect-container {
+      animation: fadeIn 2s ease-in-out;
+    }
+    .redirect-message {
+      font-size: 2.5em;
+      margin: 0;
+    }
+    .loading-dots::after {
+      content: '';
+      display: inline-block;
+      animation: blink 1.5s infinite step-start;
+    }
+    @keyframes fadeIn {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
+    }
+    @keyframes blink {
+      0%, 20% { content: ''; }
+      40% { content: '.'; }
+      60% { content: '..'; }
+      80%, 100% { content: '...'; }
+    }
+  </style>
+  <script>
+    window.onload = function() {
+      // Save current URL path to localStorage
+      let currentPath = window.location.pathname + window.location.search + window.location.hash;
+      localStorage.setItem("redirectedPath", currentPath);
+      // Redirect user to the new website after five seconds
+      setTimeout(function() {
+        //window.location.href = "https://arubiku.github.io/contentshowup/"
+      });
+    };
+  </script>
+</head>
+<body>
+  <div id="redirect-container">
+    <p class="redirect-message">Redirecting</p>
+    <p class="loading-dots">...</p>
+  </div>
+</body>
