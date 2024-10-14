@@ -1,12 +1,14 @@
 import { useState } from "react"
 import { Pack } from "../Data"
+import { Language, TranstaletedText } from "../LangSys"
 import { UserDialog } from "./UserDialog"
 
 type MembersSectionProps = {
   packs: Pack[]
+  lang: Language
 }
 
-export function MembersSection({ packs }: MembersSectionProps) {
+export function MembersSection({ packs,lang }: MembersSectionProps) {
   const [selectedAuthor, setSelectedAuthor] = useState<string | null>(null)
 
   const authors = Array.from(new Set(packs.map(pack => pack.author)))
@@ -46,8 +48,8 @@ export function MembersSection({ packs }: MembersSectionProps) {
 
   return (
     <section className="mt-12">
-      <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-4">Members</h2>
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+      <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-4"><TranstaletedText lang= {lang} langPath="placeholders.member" optional="Members"></TranstaletedText></h2>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6 dark:outline-transparent dark:border-transparent">
         {authors.map(author => {
           const authorName = author.split('/').pop()
           return (

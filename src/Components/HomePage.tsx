@@ -8,7 +8,7 @@ interface HomePageProps {
 
 export function HomePage({ lang }: HomePageProps) {
     return (
-        <div className="bg-white dark:bg-gray-900">
+        <div className="dark:bg-gray-900">
             <HeroSection lang={lang} />
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 <FAQSection lang={lang} />

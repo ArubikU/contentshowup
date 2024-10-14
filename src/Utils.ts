@@ -1,7 +1,12 @@
+import { type ClassValue, clsx } from "clsx"
 import { useEffect, useState } from 'react'
+import { twMerge } from "tailwind-merge"
 import { Pack } from './Data'
 import { Language } from './LangSys'
 
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs))
+}
 export const useClientLanguage = () => {
   const [lang, setLang] = useState<Language>(Language.en)
 

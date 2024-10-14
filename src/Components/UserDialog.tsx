@@ -8,6 +8,29 @@ type UserDialogProps = {
   authorUrl: string
   packs: Pack[]
 }
+export const getLogoUrl = (author: string) => {
+  if (author.includes('github')) {
+    const authorName = author.split('/').pop()
+    return "https://avatars.githubusercontent.com/" + authorName
+  }
+  if (author.includes('twitter')) {
+    const authorName = author.split('/').pop()
+    return "https://unavatar.vercel.app/twitter/" + authorName
+  }
+  if (author.includes('linkedin')) {
+    const authorName = author.split('/').pop()
+    return "https://unavatar.vercel.app/linkedin/" + authorName
+  }
+  if (author.includes('modrinth')) {
+    const authorName = author.split('/').pop()
+    let output = ""
+    fetch(`https://api.modrinth.com/v2/user/${authorName}`)
+    .then(res => res.json())
+    .then(data => output = data.avatar_url)
+    .catch(err => console.error("Error fetching user data:", err))
+    return output
+  }
+}
 
 export function UserDialog({ isOpen, onClose, authorUrl, packs }: UserDialogProps) {
   const [userData, setUserData] = useState<any>(null)
@@ -25,29 +48,6 @@ export function UserDialog({ isOpen, onClose, authorUrl, packs }: UserDialogProp
 
   const authorPacks = packs.filter(pack => pack.author === authorUrl)
 
-  const getLogoUrl = (author: string) => {
-    if (author.includes('github')) {
-      const authorName = author.split('/').pop()
-      return "https://avatars.githubusercontent.com/" + authorName
-    }
-    if (author.includes('twitter')) {
-      const authorName = author.split('/').pop()
-      return "https://unavatar.vercel.app/twitter/" + authorName
-    }
-    if (author.includes('linkedin')) {
-      const authorName = author.split('/').pop()
-      return "https://unavatar.vercel.app/linkedin/" + authorName
-    }
-    if (author.includes('modrinth')) {
-      const authorName = author.split('/').pop()
-      let output = ""
-      fetch(`https://api.modrinth.com/v2/user/${authorName}`)
-      .then(res => res.json())
-      .then(data => output = data.avatar_url)
-      .catch(err => console.error("Error fetching user data:", err))
-      return output
-    }
-  }
 
   const getLogoComponent = (author: string) => {
     let logoUrl = getLogoUrl(author)

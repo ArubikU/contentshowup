@@ -9,7 +9,7 @@ export const RUSSIAN: BaseLocale =  {
     },
     mainPage: {
         title: "Добро пожаловать в {title}",
-        subtitle: "Мощный мод-лоадер для ваших игровых нужд",
+        subtitle: "Мощный контент, который нужен каждому",
         disponibleContent: "Доступные {contentPlural}",
     },
     buttons: {
@@ -25,6 +25,7 @@ export const RUSSIAN: BaseLocale =  {
         allLoaders: "Все загрузчики",
     },
     placeholders: {
+        any: "Любой",
         description: "Описание:",
         author: "Автор:",
         disclaimer: "© 2024 {title} web. Создано",
@@ -34,6 +35,7 @@ export const RUSSIAN: BaseLocale =  {
         comments: "Комментарии",
         commentsComingSoon: "Раздел комментариев скоро появится",
         selectVersion: "Выберите версию",
+        selectLoader: "Выберите зарядное устройство"
     },
     faq: {
         title: "Часто задаваемые вопросы",

@@ -9,7 +9,7 @@ export const FRENCH: BaseLocale = {
     },
     mainPage: {
         title: "Bienvenue à {title}",
-        subtitle: "Le puissant chargeur de mods pour vos besoins de jeu",
+        subtitle: "Le puissant contenu que tout le monde a besoin",
         disponibleContent: "{contentPlural} disponibles",
     },
     buttons: {
@@ -25,6 +25,7 @@ export const FRENCH: BaseLocale = {
         allLoaders: "Tous les chargeurs",
     },
     placeholders: {
+        any: "Tout",
         description: "Description :",
         author: "Auteur :",
         disclaimer: "© 2024 {title} web. Créé par",
@@ -34,6 +35,7 @@ export const FRENCH: BaseLocale = {
         comments: "Commentaires",
         commentsComingSoon: "Section de commentaires à venir",
         selectVersion: "Sélectionnez une version",
+        selectLoader: "Sélectionnez une loader"
     },
     faq: {
         title: "Questions Fréquemment Posées",

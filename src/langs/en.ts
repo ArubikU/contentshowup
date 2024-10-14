@@ -9,7 +9,7 @@ export const ENGLISH: BaseLocale = {
     },
     mainPage: {
         title: "Welcome to {title}",
-        subtitle: "The powerful Mod loader for your gaming needs",
+        subtitle: "The content creator comunity anyone need",
         disponibleContent: "Available {contentPlural}",
     },
     buttons: {
@@ -25,6 +25,7 @@ export const ENGLISH: BaseLocale = {
         allLoaders: "All Loaders",
     },
     placeholders: {
+        any: "Any",
         description: "Description:",
         author: "Author:",
         disclaimer: "© 2024 {title} web. Created by",
@@ -34,6 +35,7 @@ export const ENGLISH: BaseLocale = {
         comments: "Comments",
         commentsComingSoon: "Comment section coming soon",
         selectVersion: "Select a version",
+        selectLoader: "Select a loader"
     },
     faq: {
         title: "Frequently Asked Questions",

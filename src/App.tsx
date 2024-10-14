@@ -18,6 +18,7 @@ export default function Component() {
   const [selectedIgnio, setSelectedIgnio] = useState<Pack | null>(null)
   const [selectedAuthor, setSelectedAuthor] = useState<string | null>(null)
   const [selectedLoader, setSelectedLoader] = useState<string | null>(null)
+  const [selectedVersions, setSelectedVersions] = useState<string[]>([])
   const [, forceUpdate] = React.useReducer(x => x + 1, 0)
 
   const [mockPack, setMockPack] = useState<Pack[]>([])
@@ -27,10 +28,20 @@ export default function Component() {
   }, [])
 
   const navigate = useNavigate()
-  useEffect(() => {
-    navigate('/contentshowup/')
-  }, [])
 
+  useEffect(() => {
+    // Check if there's a redirected path stored in localStorage
+    const redirectedPath = localStorage.getItem("redirectedPath");
+    if (redirectedPath) {
+      // Navigate to the stored path
+      navigate(redirectedPath);
+      // Clear the redirected path from localStorage
+      localStorage.removeItem("redirectedPath");
+    } else {
+      // Default navigation if no redirected path is found
+      navigate('/contentshowup/');
+    }
+  }, []);
   return (
     <ThemeProvider>
       <div className="min-h-screen bg-gray-100 dark:bg-gray-900 flex flex-col">
@@ -49,13 +60,14 @@ export default function Component() {
                 handleTagClick={handleTagClick}
                 selectedLoader={selectedLoader}
                 setSelectedLoader={setSelectedLoader}
+                selectedVersions={selectedVersions}
+                setSelectedVersions={setSelectedVersions}
                 setSelectedIgnio={setSelectedIgnio}
                 setSelectedAuthor={setSelectedAuthor}
                 handleDownload={handleDownload}
-                isVersionTag={isVersionTag}
               />
             } />
-            <Route path="/contentshowup/members" element={<MembersSection packs={mockPack} />} />
+            <Route path="/contentshowup/members" element={<MembersSection packs={mockPack}lang={lang} />} />
             <Route path="/contentshowup/upload" element={<UploadForm lang={lang} />} />
           </Routes>
         </main>

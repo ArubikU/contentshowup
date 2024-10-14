@@ -120,19 +120,19 @@ export function PackDialog({ onOpenChange, pack, lang, download, isVersionTag }:
               </div>
             </div>
             <div>
-              <h4 className="font-semibold mb-2 text-black dark:text-white">{GetLang(lang, "placeholders.versions")}</h4>
+              <h4 className="font-semibold mb-2 text-black dark:text-white dark:border-transparent dark:outline-transparent">{GetLang(lang, "placeholders.versions")}</h4>
               <Select
                 onValueChange={(value) => {
                   const version = pack?.versions.find((v) => v.version === value);
                   if (version) download(version);
                 }}
               >
-                <SelectTrigger className="w-full bg-white dark:bg-gray-700 text-black dark:text-white">
+                <SelectTrigger className="w-full bg-white dark:bg-gray-700 text-black dark:text-white dark:border-transparent dark:outline-transparent">
                   <SelectValue placeholder={GetLang(lang, "placeholders.selectVersion")} />
                 </SelectTrigger>
-                <SelectContent className="bg-white dark:bg-gray-700">
+                <SelectContent className="bg-white dark:bg-gray-700 dark:border-transparent dark:outline-transparent">
                   {pack?.versions.map((version, index) => (
-                    <SelectItem className="bg-white dark:bg-gray-700 text-black dark:text-white hover:bg-gray-100 dark:hover:bg-gray-600" key={index} value={version.version}>
+                    <SelectItem className="bg-white dark:bg-gray-700 text-black dark:text-white hover:bg-gray-100 dark:hover:bg-gray-600 dark:border-transparent dark:outline-transparent" key={index} value={version.version}>
                       {version.version}
                     </SelectItem>
                   ))}

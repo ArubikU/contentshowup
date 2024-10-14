@@ -9,7 +9,7 @@ export const SPANISH: BaseLocale = {
     },
     mainPage: {
         title: "Bienvenido a {title}",
-        subtitle: "El cargador de Mods más útil para ti.",
+        subtitle: "La comunidad de creacion de contenido que todos necesitan.",
         disponibleContent: "{contentPlural} disponibles",
     },
     buttons: {
@@ -25,6 +25,7 @@ export const SPANISH: BaseLocale = {
         allLoaders: "Todos los Cargadores",
     },
     placeholders: {
+        any: "Cualquiera",
         description: "Descripción:",
         author: "Autor:",
         disclaimer: "© 2024 {title} web. Creado por",
@@ -34,6 +35,7 @@ export const SPANISH: BaseLocale = {
         comments: "Comentarios",
         commentsComingSoon: "Sección de comentarios próximamente",
         selectVersion: "Selecciona una versión",
+        selectLoader: "Selecciona un cargador"
     },
     faq: {
         title: "Preguntas Frecuentes",

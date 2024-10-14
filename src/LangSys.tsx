@@ -4,12 +4,14 @@ import { FRENCH } from "./langs/fr";
 import { RUSSIAN } from "./langs/ru";
 
 export const Placeholders = {
-    title: "Ignite",
+    titlenav: "",
+    title: "CML",
     author: "ArubikU",
     authorUrl: "https://github.com/arubiku",
-    projectRepo: "https://github.com/vectrix-space/ignite",
-    contentPlural: "Ignios",
-    repositoryWeb: "https://arubiku.github.io/contentshowup/"
+    projectRepo: "https://arubiku.github.io/contentshowup/",
+    contentPlural: "Packs",
+    repositoryWeb: "https://arubiku.github.io/contentshowup/",
+    logo: "https://github.com/ArubikU/contentshowup/blob/main/cml_logo.png?raw=true"
 }
 
 export enum Language {
@@ -44,6 +46,7 @@ export type BaseLocale = {
         allLoaders: string;
     };
     placeholders: {
+        any: string;
         description: string;
         author: string;
         disclaimer: string;
@@ -53,6 +56,7 @@ export type BaseLocale = {
         comments: string;
         commentsComingSoon: string;
         selectVersion: string;
+        selectLoader: string;
     };
     faq: {
         title: string;
@@ -140,4 +144,17 @@ export const GetLangArray = (lang: Language, langPath: string) => {
     });
 
     return a;
+}
+
+interface TranstaletedTextProps {
+    lang: Language;
+    langPath: string;
+    optional?: string
+}
+export const TranstaletedText = ({ lang, langPath, optional }: TranstaletedTextProps) => {
+    let text = GetLang(lang, langPath)
+    if(text===""){
+        return <>{optional}</>
+    }
+    return <>{GetLang(lang, langPath)}</>;
 }
