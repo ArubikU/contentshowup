@@ -439,7 +439,11 @@ export default function Portfolio({ config = defaultConfig }: { config?: Portfol
         e.preventDefault()
         const subject = `Contacto desde Portafolio: ${formData.name}`
         const body = `Nombre: ${formData.name}%0D%0AEmail: ${formData.email}%0D%0AMensaje: ${formData.message}`
-        window.location.href = `mailto:${config.contactEmail}?subject=${encodeURIComponent(subject)}&body=${body}`
+        //open a new window with the email client
+        
+        //https://mail.google.com/mail/?view=cm&fs=1&to=someone@example.com&su=SUBJECT&body=BODY&bcc=someone.else@example.com
+        window.open(`https://mail.google.com/mail/?view=cm&fs=1&to=${config.contactEmail}&su=${subject}&body=${body}`, '_blank',"location=yes,height=570,width=520,scrollbars=yes,status=yes")
+
     }
 
 
@@ -643,6 +647,7 @@ export default function Portfolio({ config = defaultConfig }: { config?: Portfol
                                     <button
                                         type="submit"
                                         className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 dark:bg-blue-500 hover:bg-blue-700 dark:hover:bg-blue-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                                        onClick={handleSubmit}
                                     >
                                         Enviar
                                     </button>
