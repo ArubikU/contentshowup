@@ -66,16 +66,16 @@ const defaultConfig: PortfolioConfig = {
         { platform: 'discord', url: 'https://discord.com/users/903705870750326804' },
     ],
     technologies: [
-        { name: "React", timeSpent: "1 {types.year}", icon: (<Reactjs className='h-16'></Reactjs>) },
-        { name: "TypeScript", timeSpent: "1.5 {types.years}", icon: (<TypeScript className='h-16'></TypeScript>) },
-        { name: "Minecraft Developing and Design", timeSpent: "7 {types.years}", icon: (<MCAddon className='h-16'></MCAddon>) },
-        { name: "C#", timeSpent: "1.5 {types.years}", icon: (<Csharp className='h-16'></Csharp>) },
-        { name: "C", timeSpent: "1.5 {types.years}", icon: (<CLang className='h-16'></CLang>) },
+        { name: "React", timeSpent: "yearsfromtime[2023-11-22] {types.year}", icon: (<Reactjs className='h-16'></Reactjs>) },
+        { name: "TypeScript", timeSpent: "yearsfromtime[2021-06-01] {types.years}", icon: (<TypeScript className='h-16'></TypeScript>) },
+        { name: "Minecraft Developing and Design", timeSpent: "yearsfromtime[2016-05-20] {types.years}", icon: (<MCAddon className='h-16'></MCAddon>) },
+        { name: "C#", timeSpent: "yearsfromtime[2021-02-15] {types.years}", icon: (<Csharp className='h-16'></Csharp>) },
+        { name: "C", timeSpent: "yearsfromtime[2022-06-10] {types.years}", icon: (<CLang className='h-16'></CLang>) },
 
-        { name: "Node.js", timeSpent: "2 {types.years}", icon: (<Node className='h-16'></Node>) },
-        { name: "Glsl", timeSpent: "2 {types.years}", icon: (<Cuda className='h-16'></Cuda>) },
-        { name: "Python", timeSpent: "3 {types.years}", icon: (<Python className='h-16'></Python>) },
-        { name: "Java", timeSpent: "5 {types.years}", icon: (<Java className='h-16'></Java>) },
+        { name: "Node.js", timeSpent: "yearsfromtime[2021-06-01] {types.years}", icon: (<Node className='h-16'></Node>) },
+        { name: "Glsl", timeSpent: "yearsfromtime[2023-06-15] {types.years}", icon: (<Cuda className='h-16'></Cuda>) },
+        { name: "Python", timeSpent: "yearsfromtime[2020-04-01] {types.years}", icon: (<Python className='h-16'></Python>) },
+        { name: "Java", timeSpent: "yearsfromtime[2018-06-01] {types.years}", icon: (<Java className='h-16'></Java>) },
 
     ],
     certificates: [
@@ -281,7 +281,8 @@ export default function Portfolio({ config = defaultConfig }: { config?: Portfol
 
     const [lang, setLang] = useClientLanguage()
 
-    const [setHead, setIcon] = useDocument(GetLang(lang, "headers.title", PortfolioLocals), "./icons/portfolio.ico")
+    const [setHead, setIcon] = useDocument(GetLang(lang, "headers.title", PortfolioLocals), 
+    "https://raw.githubusercontent.com/ArubikU/contentshowup/refs/heads/main/public/icons/portfolio.ico")
     useEffectLang(lang, () => {
         setHead(GetLang(lang, "headers.title", PortfolioLocals))
     })
@@ -434,8 +435,10 @@ export default function Portfolio({ config = defaultConfig }: { config?: Portfol
                             <div className="space-y-6">
                                 <TextReveal>
                                     <img src={config.profileImageUrl} alt={config.name} className="w-48 h-48 rounded-full mx-auto" />
-                                    <h1 className="text-4xl font-bold text-center">{config.name}</h1>
-                                    <h2 className="text-2xl text-center text-blue-300 dark:text-blue-400"><TranstaletedText lang={lang} langPath={"portfolio.title"} locals={PortfolioLocals} /></h2>
+                                    <TranslateChilds lang={lang} locals={PortfolioLocals} children={(<div>
+                                        <h1 className="text-4xl font-bold text-center">{config.name}</h1>
+                                    <h2 className="text-2xl text-center text-blue-300 dark:text-blue-400">{"{portfolio.title}"}</h2>
+                                    </div>)}></TranslateChilds>
                                     <div className="space-y-4 mt-auto pt-4" />
                                     <div className="flex justify-center space-x-4">
                                         {config.socialMedia.map((social, index) => (
@@ -470,7 +473,7 @@ export default function Portfolio({ config = defaultConfig }: { config?: Portfol
                                                 tech.icon
                                             )}
                                             <h3 className="font-semibold">{tech.name}</h3>
-                                            <p className="text-sm">Tiempo: {tech.timeSpent}</p>
+                                            <p className="text-sm">{"{types.time}: "} {tech.timeSpent}</p>
                                         </div>
                                     ))}
                                 </div>)}></TranslateChilds>

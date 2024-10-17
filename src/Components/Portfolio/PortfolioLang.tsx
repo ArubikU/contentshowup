@@ -16,6 +16,8 @@ const SPANISH: LocaleData = {
     name: 'Nombre',
     email: 'Correo Electrónico',
     message: 'Mensaje',
+    time: 'Tiempo',
+    age: 'Edad',
  },
  headers: {
     title: 'Portafolio',
@@ -93,6 +95,8 @@ const arubik = {
     name: 'Name',
     email: 'Email',
     message: 'Message',
+    time: 'Time',
+    age: 'Age',
   },
   headers: {
     title: 'Portfolio',

@@ -123,17 +123,69 @@ const localizations: Locals = {
     es: SPANISH,
     fr: FRENCH,
     ru: RUSSIAN,
+};// Placeholder interface definition
+export interface Placeholder {
+    parse: (text: string) => string;
+}
+
+// TimePlaceholder implementation
+ const TimePlaceholder: Placeholder = {
+    parse: (text: string) => {
+        return text.replaceAll(/timeplaceholder\[(.*?)\]/g, (_, args) => {
+            console.log(args);
+            const date = new Date(args);
+            return date.toLocaleDateString(); // Adjust to the desired format
+        });
+    }
 };
 
-const parsePlaceholders = (text: string) => {
-    if (text === undefined){
+// YearsFromTime implementation
+ const YearsFromTime: Placeholder = {
+    parse: (text: string) => {
+        return text.replaceAll(/yearsfromtime\[(.*?)\]/g, (_, args) => {
+            const startDate = new Date(args);
+            const currentDate = new Date();
+            
+            // Calculate the difference in years counting the milliseconds
+            const diff = currentDate.getTime() - startDate.getTime();
+            const years = diff / (1000 * 60 * 60 * 24 * 365);
+            //round to 2 decimal places
+            const out= years.toFixed(2);
+            return out;
+        });
+    }
+};
+
+
+const PlaceholdersList: { [key: string]: Placeholder } = {
+    time: TimePlaceholder,
+    yearsFromTime: YearsFromTime
+};
+
+export const addPlaceholder = (key: string, placeholder: Placeholder) => {
+    PlaceholdersList[key] = placeholder;
+}
+
+
+const parsePlaceholders = (tex: string, lang?: Language) => {
+    if (tex === undefined){
         return "";
     }
-    return text.replace(/{(.*?)}/g, (_, key) => {
+    let text = tex;
+    for (const key in PlaceholdersList) {
+        text = PlaceholdersList[key].parse(text);
+    }
+
+    text= text.replace(/{(.*?)}/g, (_, key) => {
         const value = Placeholders[key as keyof typeof Placeholders];
         return value !== undefined ? value : `{${key}}`;
     });
+    return text;
+
 };
+export const usePlaceholder = (text: string) => {
+    return parsePlaceholders(text);
+}
 
 export const GetLang = (lang: Language, langPath: string, l?: Locals) => {
 
@@ -192,8 +244,8 @@ interface TranslateChildsProps {
 export const TranslateChilds = ({ lang, children, locals }: TranslateChildsProps) => {
     //replace any text in the format {key} with the value of GetLang(key,locals?)
     const childrensAsRaw = renderToString(children);
-    const regex = /{([^}]+)}/g
     let newChildren = childrensAsRaw;
+    const regex = /{([^}]+)}/g
     const replaceMatch = (result: string, match: string, lang: Language, locals?: Locals) => {
         return result.replace(`{${match}}`, GetLang(lang, match, locals));
     };
@@ -213,7 +265,7 @@ export const TranslateChilds = ({ lang, children, locals }: TranslateChildsProps
 
         return result;
     };
-    newChildren = replacePlaceholders(childrensAsRaw);
+    newChildren = parsePlaceholders(replacePlaceholders(childrensAsRaw));
     return (
         <div key={lang} dangerouslySetInnerHTML={{__html: newChildren}}></div>
       )
