@@ -1,7 +1,9 @@
-import { ENGLISH } from "./langs/en";
-import { SPANISH } from "./langs/es";
-import { FRENCH } from "./langs/fr";
-import { RUSSIAN } from "./langs/ru";
+import { renderToString } from 'react-dom/server';
+import { ENGLISH } from "../../langs/en";
+import { SPANISH } from "../../langs/es";
+import { FRENCH } from "../../langs/fr";
+import { RUSSIAN } from "../../langs/ru";
+
 
 export const Placeholders = {
     titlenav: "",
@@ -21,7 +23,8 @@ export enum Language {
     ru = "ru",
 }
 
-export type BaseLocale = {
+//extends LocaleData
+export type PackLocale = {
     language: {
         en: string;
         es: string;
@@ -98,8 +101,21 @@ export type BaseLocale = {
     };
 };
 
-type Locals = {
-    [key in Language]: BaseLocale;
+export interface FAQItem {
+    question: string;
+    answer: string;
+}
+
+export interface LocaleData {
+    [key: string]: string | { [key: string]: string } | { title: string; items: FAQItem[]; };
+}
+
+
+export type Locals = {
+    'en'? : LocaleData;
+    'es'? : LocaleData;
+    'fr'? : LocaleData;
+    'ru'? : LocaleData;
 };
 
 const localizations: Locals = {
@@ -119,22 +135,25 @@ const parsePlaceholders = (text: string) => {
     });
 };
 
-export const GetLang = (lang: Language, langPath: string) => {
+export const GetLang = (lang: Language, langPath: string, l?: Locals) => {
+
+    let locals = l || localizations;
     const getNestedValue = (obj: any, path: string): any => {
         return path.split('.').reduce((acc, part) => acc && acc[part], obj);
     };
 
-    let localizedString = getNestedValue(localizations[lang], langPath) || getNestedValue(localizations[Language.en], langPath);
+    let localizedString = getNestedValue(locals[lang], langPath) || getNestedValue(locals[Language.en], langPath);
 
     return parsePlaceholders(localizedString);
 };
 
-export const GetLangArray = (lang: Language, langPath: string) => {
+export const GetLangArray = (lang: Language, langPath: string, l? : Locals) => {
+    let locals = l || localizations;
     const getNestedValue = (obj: any, path: string): any => {
         return path.split('.').reduce((acc, part) => acc && acc[part], obj);
     };
 
-    let localizedArray = getNestedValue(localizations[lang], langPath) || getNestedValue(localizations[Language.en], langPath);
+    let localizedArray = getNestedValue(locals[lang], langPath) || getNestedValue(locals[Language.en], langPath);
 
     let a = localizedArray.map((item: any) => {
         return {
@@ -150,11 +169,52 @@ interface TranstaletedTextProps {
     lang: Language;
     langPath: string;
     optional?: string
+    locals?: Locals;
 }
-export const TranstaletedText = ({ lang, langPath, optional }: TranstaletedTextProps) => {
+export const TranstaletedText = ({ lang, langPath, optional,locals }: TranstaletedTextProps) => {
     let text = GetLang(lang, langPath)
+    if(locals){
+       text = GetLang(lang, langPath,locals)
+    }
     if(text===""){
         return <>{optional}</>
-    }
-    return <>{GetLang(lang, langPath)}</>;
+    } 
+
+    return <>{text}</>;
+}
+
+interface TranslateChildsProps {
+    lang: Language;
+    locals?: Locals;
+    children: React.ReactElement;
+}
+
+export const TranslateChilds = ({ lang, children, locals }: TranslateChildsProps) => {
+    //replace any text in the format {key} with the value of GetLang(key,locals?)
+    const childrensAsRaw = renderToString(children);
+    const regex = /{([^}]+)}/g
+    let newChildren = childrensAsRaw;
+    const replaceMatch = (result: string, match: string, lang: Language, locals?: Locals) => {
+        return result.replace(`{${match}}`, GetLang(lang, match, locals));
+    };
+    const replacePlaceholders = (text: string) => {
+        let result = text;
+        let m: RegExpExecArray;
+            while ((m = regex.exec(text)) !== null) {
+            if (m.index === regex.lastIndex) {
+                regex.lastIndex++;
+            }
+            m.forEach((match: string, groupIndex: number) => {
+                if (groupIndex === 1) {
+                    result = replaceMatch(result, match, lang, locals);
+                }
+            });
+        }
+
+        return result;
+    };
+    newChildren = replacePlaceholders(childrensAsRaw);
+    return (
+        <div key={lang} dangerouslySetInnerHTML={{__html: newChildren}}></div>
+      )
 }

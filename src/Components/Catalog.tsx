@@ -1,8 +1,8 @@
 import { Check, Circle, Download, Eye, Search, Square, Triangle } from 'lucide-react'
 import { useCallback, useMemo, useState } from 'react'
 import { Pack } from ".././Data"
-import { GetLang, Language, TranstaletedText } from ".././LangSys"
 import { Badge, Input } from "./Components"
+import { GetLang, Language, TranstaletedText } from "./Lang/LangSys"
 import { getLogoUrl } from './UserDialog'
 
 import { BrowserView, isBrowser } from 'react-device-detect'
@@ -14,12 +14,12 @@ import {
   CommandItem
 } from "./Command"
 import { Button } from "./Components"
-import { Image } from './Img'
+import { Image } from './Generic/Img'
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "./Popover"
+} from "./Generic/Popover"
 interface CatalogProps {
   packs: Pack[]
   lang: Language

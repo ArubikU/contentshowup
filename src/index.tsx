@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter, HashRouter, Route, Routes } from 'react-router-dom';
 import App from './App';
-import Portfolio from './Components/Portfolio';
+import Portfolio from './Components/Portfolio/Portfolio';
 import './index.css';
 const RouterType = process.env.HASH_ROUTER === 'true' ? HashRouter : BrowserRouter
 

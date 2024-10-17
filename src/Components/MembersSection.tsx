@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { Pack } from "../Data"
-import { Language, TranstaletedText } from "../LangSys"
+import { Language, TranstaletedText } from "./Lang/LangSys"
 import { UserDialog } from "./UserDialog"
 
 type MembersSectionProps = {

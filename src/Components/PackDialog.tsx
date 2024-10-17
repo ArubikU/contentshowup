@@ -3,8 +3,8 @@ import DOMPurify from "dompurify"; // Para sanitizar el HTML generado
 import { ExternalLink, Github } from "lucide-react";
 import { marked } from "marked";
 import { Pack } from "../Data";
-import { GetLang, Language, Placeholders } from "../LangSys";
 import { Badge, Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./Components";
+import { GetLang, Language, Placeholders } from "./Lang/LangSys";
 
 type PackDialogProps = {
   open: boolean;

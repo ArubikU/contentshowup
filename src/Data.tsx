@@ -49,12 +49,12 @@ export const GetPackData = async (
       const data = await res.json();
       currentResults.push(data); // Agrega los resultados obtenidos al array
     } else {
-      console.warn(`Pack ${packNumber} not found (status: ${res.status})`);
+      //console.warn(`Pack ${packNumber} not found (status: ${res.status})`);
       // Detenemos la recursión si no se encuentra el archivo
       return update(currentResults);
     }
   } catch (error) {
-    console.error(`Error fetching pack ${packNumber}:`, error);
+    //console.error(`Error fetching pack ${packNumber}:`, error);
     // Detenemos la recursión si hay un error
     return update(currentResults);
   }

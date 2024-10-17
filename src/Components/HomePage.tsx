@@ -1,6 +1,6 @@
 import { ChevronDown } from 'lucide-react'
-import { GetLang, GetLangArray, Language, Placeholders } from ".././LangSys"
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "./Components"
+import { GetLang, GetLangArray, Language, Placeholders } from "./Lang/LangSys"
 
 interface HomePageProps {
     lang: Language

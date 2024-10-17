@@ -2,8 +2,8 @@ import { X } from 'lucide-react'
 import newGithubIssueUrl from 'new-github-issue-url'
 import { useState } from 'react'
 import { Pack } from '../Data'
-import { GetLang, Language } from "../LangSys"
 import { Button, Card, CardContent, CardFooter, CardHeader, CardTitle, Input, Label, Select, SelectContent, SelectItem, SelectTrigger, SelectValue, TextArea } from "./Components"
+import { GetLang, Language } from "./Lang/LangSys"
 
 type UploadFormProps = {
   lang: Language

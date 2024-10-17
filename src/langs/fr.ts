@@ -1,4 +1,4 @@
-import { BaseLocale } from "../LangSys";
+import { LocaleData as BaseLocale } from "../Components/Lang/LangSys";
 
 export const FRENCH: BaseLocale = {
     language: {

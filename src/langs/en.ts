@@ -1,4 +1,4 @@
-import { BaseLocale } from "../LangSys";
+import { LocaleData as BaseLocale, FAQItem } from "../Components/Lang/LangSys";
 
 export const ENGLISH: BaseLocale = {
     language: {
@@ -56,7 +56,7 @@ export const ENGLISH: BaseLocale = {
                 question: "How can I create mods for {title}?",
                 answer: "We provide comprehensive documentation and tools for mod developers. Visit our developer portal to get started with creating mods for {title}."
             },
-        ],
+        ] as FAQItem[],
     },
     uploadForm: {
         title: "Add Content",

@@ -2,10 +2,10 @@ import { Github, Globe, Home, LibraryBig, Menu, Upload, Users, X } from "lucide-
 import { useState } from "react"
 import { BrowserView, MobileView } from "react-device-detect"
 import { useNavigate } from "react-router-dom"
-import { Language, Placeholders, TranstaletedText } from ".././LangSys"
 import { Button, Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./Components"
-import { Sheet, SheetContent, SheetTrigger } from "./Sheet"
-import { ThemeToggle } from "./ThemeToggle"
+import { Sheet, SheetContent, SheetTrigger } from "./Generic/Sheet"
+import { ThemeToggle } from "./Generic/ThemeToggle"
+import { Language, Placeholders, TranstaletedText } from "./Lang/LangSys"
 
 interface HeaderProps {
   lang: Language;
@@ -54,7 +54,7 @@ export function MobileNavbar({ lang, setLang }: HeaderProps) {
           </div>
           <div className="flex items-center space-x-1">
             <Button onClick={() => navigate('/contentshowup/#')} >
-              <Home className="h-6 w-6" />
+              <Home className="h-6 w-6 bg-white dark:bg-gray-800 text-black dark:text-white " />
             </Button>
             <Sheet open={isOpen} onOpenChange={setIsOpen}>
               <SheetTrigger asChild>
