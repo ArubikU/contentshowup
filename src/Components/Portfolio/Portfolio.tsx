@@ -8,7 +8,7 @@ import { useClientLanguage, useDocument, useEffectLang } from '../../Utils'
 import DraggableNote, { Note } from '../Generic/DraggableNote'
 import { Image } from '../Generic/Img'
 import { LangSwitcher, ThemeToggle } from '../Generic/ThemeToggle'
-import { GetLang, TranslateChilds, TranstaletedText } from '../Lang/LangSys'
+import { GetLang, TranslateChilds, TranstaletedText, usePlaceholder } from '../Lang/LangSys'
 import SimpleMarkdown from '../SimpleMarkdown/SimpleMarkdown'
 import BubbleMenu from './BubbleMenu'
 import { PortfolioLocals } from './PortfolioLang'
@@ -454,7 +454,7 @@ export default function Portfolio({ config = defaultConfig }: { config?: Portfol
                                             <span className="text-sm text-gray-600 dark:text-gray-300 font-medium">README.md</span>
                                         </div>
                                         <div className="p-6 font-mono text-sm overflow-auto bg-white dark:bg-neutral-900">
-                                            <SimpleMarkdown content={GetLang(lang, "portfolio.bioMarkdown", PortfolioLocals)} />
+                                            <SimpleMarkdown content={usePlaceholder(GetLang(lang,"portfolio.bioMarkdown",PortfolioLocals),lang, PortfolioLocals)} />
                                         </div>
                                     </div>
                                 </TextReveal>

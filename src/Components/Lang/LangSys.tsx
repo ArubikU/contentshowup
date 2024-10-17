@@ -183,7 +183,30 @@ const parsePlaceholders = (tex: string, lang?: Language) => {
     return text;
 
 };
-export const usePlaceholder = (text: string) => {
+export const usePlaceholder = (text: string,lang: Language, locals) => {
+
+    const regex = /{([^}]+)}/g
+    const replaceMatch = (result: string, match: string, lang: Language, locals?: Locals) => {
+        return result.replace(`{${match}}`, GetLang(lang, match, locals));
+    };
+    const replacePlaceholders = (text: string) => {
+        let result = text;
+        let m: RegExpExecArray;
+            while ((m = regex.exec(text)) !== null) {
+            if (m.index === regex.lastIndex) {
+                regex.lastIndex++;
+            }
+            m.forEach((match: string, groupIndex: number) => {
+                if (groupIndex === 1) {
+                    result = replaceMatch(result, match, lang, locals);
+                }
+            });
+        }
+
+        return result;
+    };
+    text = replacePlaceholders(text);
+
     return parsePlaceholders(text);
 }
 

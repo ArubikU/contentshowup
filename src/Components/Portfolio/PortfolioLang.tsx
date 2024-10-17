@@ -52,6 +52,8 @@ const SPANISH: LocaleData = {
 
 - ⚡ Dato curioso **Probablemente exista en múltiples dimensiones**
 
+- ⏰ **Actualmente tengo yearsfromtime[2021-06-01] {types.years} de vida desde mi **\`.build()\`
+
 \`\`\`javascript
 const arubik = {
    pronouns: "they" | "them",
@@ -130,6 +132,8 @@ const arubik = {
 - 📄 That markdown text is represented by a custom formatter!
 
 - ⚡ Fun fact **I probably exist in multiple dimensions**
+
+- ⏰ **Actually i had yearsfromtime[2021-06-01] {types.years} of live from my **\`.build()\`
 
 \`\`\`javascript
 const arubik = {
