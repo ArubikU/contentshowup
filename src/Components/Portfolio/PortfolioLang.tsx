@@ -44,15 +44,11 @@ const SPANISH: LocaleData = {
 <h1 align="center">Hola 👋, soy ArubikU</h1>
 <h3 align="center">Soy una persona bastante interesada en aprender más sobre programación y veo un futuro brillante no solo para el mundo y la tecnología sino para mí y mis seres queridos.</h3>
 
-- 🔭 Actualmente estoy trabajando en *sí*
-
 - 🌱 Actualmente estoy aprendiendo **IA y algunas técnicas de front-end**
 
 - 📄 ¡Ese texto de markdown lo representa un formateador propio!
 
 - ⚡ Dato curioso **Probablemente exista en múltiples dimensiones**
-
-- ⏰ **Actualmente tengo yearsfromtime[2021-06-01] {types.years} de vida desde mi **\`.build()\`
 
 \`\`\`javascript
 const arubik = {
@@ -125,15 +121,11 @@ const arubik = {
 <h1 align="center">Hi 👋, I'm ArubikU</h1>
 <h3 align="center">I'm a person quite interested in learning more about programming and I see a bright future not only for the world and technology but for me and my loved ones.</h3>
 
-- 🔭 I'm currently working on *yes*
-
 - 🌱 I'm currently learning **AI and some front-end techniques**
 
 - 📄 That markdown text is represented by a custom formatter!
 
 - ⚡ Fun fact **I probably exist in multiple dimensions**
-
-- ⏰ **Actually i had yearsfromtime[2021-06-01] {types.years} of live from my **\`.build()\`
 
 \`\`\`javascript
 const arubik = {

@@ -1,47 +1,97 @@
-import { motion, PanInfo, useAnimation, useMotionValue, useTransform } from 'framer-motion';
-import React, { useEffect, useRef } from 'react';
-import { GetLang, Language } from '../Lang/LangSys';
-import { PortfolioLocals } from '../Portfolio/PortfolioLang';
-import SimpleMarkdown from '../SimpleMarkdown/SimpleMarkdown';
+'use client'
+
+import { SimpleMarkdown } from '@arubiku/react-markdown'
+import { motion, PanInfo, useMotionValue, useTransform } from 'framer-motion'
+import React, { useEffect, useState } from 'react'
+import { useTheme } from '../../ThemeContext'
+import { GetLang, Language } from '../Lang/LangSys'
+import { PortfolioLocals } from '../Portfolio/PortfolioLang'
+
 
 export interface Note {
-  id: number;
-  content: string;
-  position: { x: number; y: number };
+  id: number
+  content: string
+  position: { x: number; y: number }
+}
+
+interface DraggableBackgroundNotesProps {
+  initialNotes: Note[]
+  clientLang: [Language, (lang: Language) => void];
+  contentRef: React.RefObject<HTMLDivElement>;
+}
+
+export default function DraggableBackgroundNotes({ initialNotes, clientLang,contentRef }: DraggableBackgroundNotesProps) {
+  const [notes, setNotes] = useState<Note[]>(initialNotes)
+  const [windowSize, setWindowSize] = useState({ width: 0, height: 0 })
+
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowSize({ width: window.innerWidth, height: window.innerHeight })
+    }
+
+    handleResize()
+    window.addEventListener('resize', handleResize)
+
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
+
+  const updateNotePosition = (id: number, x: number, y: number) => {
+    setNotes(prevNotes => prevNotes.map(note => 
+      note.id === id ? { ...note, position: { x, y } } : note
+    ))
+  }
+
+  return (
+    <div className="fixed inset-0 pointer-events-none">
+      {notes.map((note) => (
+        <DraggableNote
+          key={note.id}
+          note={note}
+          updatePosition={updateNotePosition}
+          windowSize={windowSize}
+          clientLang={clientLang}
+          contentRef={contentRef}
+        />
+      ))}
+    </div>
+  )
 }
 
 interface DraggableNoteProps {
-  note: Note;
-  notes: Note[];
-  contentRef: React.RefObject<HTMLDivElement>;
-  onPositionUpdate: (id: number, newPosition: { x: number; y: number }) => void;
+  note: Note
+  updatePosition: (id: number, x: number, y: number) => void
+  windowSize: { width: number; height: number }
   clientLang: [Language, (lang: Language) => void];
+  contentRef: React.RefObject<HTMLDivElement>;
 }
 
-const DraggableNote: React.FC<DraggableNoteProps> = ({ note, notes, contentRef, onPositionUpdate , clientLang }) => {
-  const controls = useAnimation();
-  const noteRef = useRef<HTMLDivElement>(null);
-  const [lang, setLang] = clientLang;
-  const x = useMotionValue(note.position.x);
-  const y = useMotionValue(note.position.y);
+function DraggableNote({ note, updatePosition, windowSize,clientLang ,contentRef}: DraggableNoteProps) {
+  const x = useMotionValue(note.position.x)
+  const y = useMotionValue(note.position.y)
+  const { theme, } = useTheme()
+  const noteRef = React.useRef<HTMLDivElement>(null);
+  //set the original position of the note , note.position is the percentage of the screen
+  useEffect(() => {
+    x.set(note.position.x * window.innerWidth / 100)
+    y.set(note.position.y * window.innerHeight / 100)
+  }, [window.innerWidth, window.innerHeight])
+  useEffect(() => {
+    const unsubscribeX = x.onChange(latest => {
+      updatePosition(note.id, latest, y.get())
+    })
+    const unsubscribeY = y.onChange(latest => {
+      updatePosition(note.id, x.get(), latest)
+    })
+
+    return () => {
+      unsubscribeX()
+      unsubscribeY()
+    }
+  }, [note.id, x, y, updatePosition])
 
   const rotateZ = useTransform(x, [0, 100], [-5, 5]);
   const scale = useTransform(y, [0, 100], [0.95, 1.05]);
-
-  useEffect(() => {
-    x.set(note.position.x);
-    y.set(note.position.y);
-  }, [note.position, x, y]);
-
   const handleDrag = (event: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => {
-    const newX = (info.point.x / window.innerWidth) * 100;
-    const newY = (info.point.y / window.innerHeight) * 100;
-    note.position.x=newX;
-    note.position.y=newY;
-    onPositionUpdate(note.id, { x: note.position.x, y: note.position.y });
-  };
-
-  const handleDragEnd = (event: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => {
     const contentRect = contentRef.current?.getBoundingClientRect();
     if (!contentRect || !noteRef.current) return;
 
@@ -54,30 +104,8 @@ const DraggableNote: React.FC<DraggableNoteProps> = ({ note, notes, contentRef, 
     };
 
     // Apply boundaries
-    newPosition.x = Math.max(0, Math.min(newPosition.x, 95 - (noteRect.width / window.innerWidth * 100)));
-    newPosition.y = Math.max(0, Math.min(newPosition.y, 95 - (noteRect.height / window.innerHeight * 100)));
-
-    // Check for collisions with other notes
-    notes.forEach((otherNote) => {
-      if (otherNote.id !== note.id) {
-        const distanceX = Math.abs(newPosition.x - otherNote.position.x);
-        const distanceY = Math.abs(newPosition.y - otherNote.position.y);
-
-        if (distanceX < 10 && distanceY < 5) {
-          if (newPosition.x > otherNote.position.x) {
-            newPosition.x += 5;
-          } else {
-            newPosition.x -= 5;
-          }
-
-          if (newPosition.y > otherNote.position.y) {
-            newPosition.y += 2.5;
-          } else {
-            newPosition.y -= 2.5;
-          }
-        }
-      }
-    });
+    newPosition.x = Math.max(0, Math.min(newPosition.x, 99 - (noteRect.width / window.innerWidth * 100)));
+    newPosition.y = Math.max(0, Math.min(newPosition.y, 99 - (noteRect.height / window.innerHeight * 100)));
 
     // Check if the note overlaps with the content area
     if (
@@ -92,43 +120,35 @@ const DraggableNote: React.FC<DraggableNoteProps> = ({ note, notes, contentRef, 
         newPosition.x = (contentRect.right / window.innerWidth) * 100 + 1;
       }
     }
+    // Update the position and scale to the original size
+    x.set(newPosition.x*window.innerWidth / 100);
+    y.set(newPosition.y*window.innerHeight / 100);
 
-    controls.start({
-      x: `${newPosition.x}vw`,
-      y: `${newPosition.y}vh`,
-      transition: { type: "spring", stiffness: 300, damping: 30 }
-    });
-
-    onPositionUpdate(note.id, newPosition);
   };
+  const dragConstraints = {
+    left: 0,
+    top: 0,
+    right: Math.max(0, windowSize.width),  // Assuming note width is 200px
+    bottom: Math.max(0, windowSize.height ) // Assuming note height is 100px
+  }
 
   return (
     <motion.div
+    drag
+      onDragEnd={(event, info) => handleDrag(event, info)}
       ref={noteRef}
-      drag
       dragMomentum={false}
-      dragElastic={0.1}
-      whileDrag={{ scale: 1.1, zIndex: 1 }}
+      dragElastic={1}
       style={{
-        x: `${note.position.x}vw`,
-        y: `${note.position.y}vh`,
+        x,
+        y,
         rotateZ,
         scale
       }}
-      animate={controls}
-      onDrag={handleDrag}
-      onDragEnd={handleDragEnd}
-      className="duration-200 animate-fadeIn transition-colors absolute bg-yellow-100 dark:text-neutral-800 dark:bg-[#66CCFF] p-2 rounded shadow-md cursor-move"
-      initial={false}
+      className="duration-200 animate-fadeIn transition-colors absolute bg-yellow-100 dark:text-neutral-800 dark:bg-[#66CCFF] p-2 rounded shadow-md cursor-move pointer-events-auto"
     >
-      <motion.div
-        animate={{ rotate: 0 }}
-        transition={{ type: "spring", stiffness: 1000, damping: 30 }}
-      >
-        <SimpleMarkdown className="text-sm p"ctexTclass="" content={GetLang(lang,note.content,PortfolioLocals)} />
-      </motion.div>
+    
+        <SimpleMarkdown className="text-sm p"ctexTclass="" content={GetLang(clientLang[0],note.content,PortfolioLocals)}  theme={theme} />
     </motion.div>
-  );
-};
-
-export default DraggableNote;
+  )
+}

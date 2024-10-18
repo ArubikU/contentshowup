@@ -8,7 +8,6 @@ import { PackDialog } from "./Components/PackDialog"
 import UploadForm from "./Components/UploadForm"
 import { UserDialog } from "./Components/UserDialog"
 import { GetPackData, Pack } from "./Data"
-import { ThemeProvider } from "./ThemeContext"
 import { handleDownload, isVersionTag, useClientLanguage, useTagSelection } from "./Utils"
 
 export default function Component() {
@@ -43,7 +42,6 @@ export default function Component() {
     }
   }, []);
   return (
-    <ThemeProvider>
       <div className="min-h-screen bg-gray-100 dark:bg-gray-900 flex flex-col">
         <Header lang={lang} setLang={setLang} />
 
@@ -89,6 +87,5 @@ export default function Component() {
           packs={mockPack}
         />
       </div>
-    </ThemeProvider>
   )
 }

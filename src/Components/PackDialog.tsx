@@ -1,8 +1,8 @@
+import { SimpleMarkdown } from "@arubiku/react-markdown";
 import { DiscussionEmbed } from "disqus-react";
-import DOMPurify from "dompurify"; // Para sanitizar el HTML generado
 import { ExternalLink, Github } from "lucide-react";
-import { marked } from "marked";
 import { Pack } from "../Data";
+import { useTheme } from "../ThemeContext";
 import { Badge, Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./Components";
 import { GetLang, Language, Placeholders } from "./Lang/LangSys";
 
@@ -20,43 +20,6 @@ function isYouTubeUrl(url: string): boolean {
   return url.includes("youtube.com") || url.includes("youtu.be");
 }
 
-// Extraer iframes antes de sanitizar el Markdown
-function extractAndSanitizeIframes(html: string): string {
-  const iframeRegex = /<iframe.*?src=["']([^"']+)["'].*?><\/iframe>/g;
-  let iframes = [];
-  let sanitizedHtml = html;
-
-  let match;
-  while ((match = iframeRegex.exec(html)) !== null) {
-    const iframe = match[0];
-    const src = match[1];
-
-    // Guarda el iframe encontrado
-    iframes.push({
-      original: iframe,
-      sanitized: `<iframe className = "duration-200 animate-fadeIn"width="100%" height="400" src="${src}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture " allowfullscreen></iframe>`,
-    });
-
-    // Reemplazar el iframe original con un marcador temporal
-    sanitizedHtml = sanitizedHtml.replace(iframe, `{!-- iframe-placeholder-${iframes.length - 1} --}`);
-  }
-
-  // Sanitizar el HTML sin los iframes
-  sanitizedHtml = DOMPurify.sanitize(sanitizedHtml);
-
-  // Volver a insertar los iframes en su lugar correspondiente
-  iframes.forEach((iframe, index) => {
-    sanitizedHtml = sanitizedHtml.replace(`{!-- iframe-placeholder-${index} --}`, iframe.sanitized);
-  });
-
-  return sanitizedHtml;
-}
-
-// Función para convertir Markdown a HTML
-function renderMarkdown(markdown: string) {
-  const rawHtml = marked(markdown); // Convierte Markdown a HTML
-  return { __html: extractAndSanitizeIframes(rawHtml.toString()) }; // Extraer y sanitizar los iframes
-}
 
 export function PackDialog({ onOpenChange, pack, lang, download, isVersionTag }: PackDialogProps) {
   const getImage = () => {
@@ -103,8 +66,7 @@ export function PackDialog({ onOpenChange, pack, lang, download, isVersionTag }:
             )}
             <div
               className="prose text-black dark:text-white"
-              dangerouslySetInnerHTML={renderMarkdown(pack?.description || "")}
-            />
+            ><SimpleMarkdown content={pack?.description || ""} theme={useTheme().theme}></SimpleMarkdown></div>
             <div>
               <h4 className="font-semibold mb-2 text-black dark:text-white">{GetLang(lang, "placeholders.tags")}</h4>
               <div className="flex flex-wrap gap-2">

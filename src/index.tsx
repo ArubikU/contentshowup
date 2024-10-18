@@ -1,12 +1,16 @@
+import { HighlighterProvider } from '@arubiku/react-markdown';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter, HashRouter, Route, Routes } from 'react-router-dom';
 import App from './App';
 import Portfolio from './Components/Portfolio/Portfolio';
 import './index.css';
+import { ThemeProvider } from './ThemeContext';
 const RouterType = process.env.HASH_ROUTER === 'true' ? HashRouter : BrowserRouter
 
 ReactDOM.render(
+  <ThemeProvider>
+    <HighlighterProvider>
   <React.StrictMode>
     
   <RouterType>
@@ -15,7 +19,9 @@ ReactDOM.render(
     <Route path="*" element={<App />} />
     </Routes> 
     </RouterType>
-  </React.StrictMode>,
+  </React.StrictMode>
+  </HighlighterProvider>
+  </ThemeProvider>,
   document.getElementById('root')
 );
 

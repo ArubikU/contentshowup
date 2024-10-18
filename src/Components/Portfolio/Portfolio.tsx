@@ -1,15 +1,15 @@
+import { SimpleMarkdown } from '@arubiku/react-markdown'
 import { CLang, Csharp, Cuda, Gradle, Java, MCAddon, Node, Python, Reactjs, TypeScript, Vercel } from '@react-symbols/icons'
 import { motion, useAnimation } from 'framer-motion'
 import { Award, Code, Folder, Mail, User } from 'lucide-react'
 import React, { useEffect, useRef, useState } from 'react'
 import { BrowserView, isMobile, MobileView } from 'react-device-detect'
-import { ThemeProvider } from '../../ThemeContext'
+import { useTheme } from '../../ThemeContext'
 import { useClientLanguage, useDocument, useEffectLang } from '../../Utils'
-import DraggableNote, { Note } from '../Generic/DraggableNote'
+import DraggableBackgroundNotes, { Note } from '../Generic/DraggableNote'
 import { Image } from '../Generic/Img'
 import { LangSwitcher, ThemeToggle } from '../Generic/ThemeToggle'
-import { GetLang, TranslateChilds, TranstaletedText, usePlaceholder } from '../Lang/LangSys'
-import SimpleMarkdown from '../SimpleMarkdown/SimpleMarkdown'
+import { GetLang, TranslateChilds, TranstaletedText } from '../Lang/LangSys'
 import BubbleMenu from './BubbleMenu'
 import { PortfolioLocals } from './PortfolioLang'
 
@@ -280,7 +280,7 @@ export default function Portfolio({ config = defaultConfig }: { config?: Portfol
     const [, forceUpdate] = React.useReducer(x => x + 1, 0)
 
     const [lang, setLang] = useClientLanguage()
-
+    const { theme, toggleTheme } = useTheme()
     const [setHead, setIcon] = useDocument(GetLang(lang, "headers.title", PortfolioLocals), 
     "https://raw.githubusercontent.com/ArubikU/contentshowup/refs/heads/main/public/icons/portfolio.ico")
     useEffectLang(lang, () => {
@@ -303,18 +303,6 @@ export default function Portfolio({ config = defaultConfig }: { config?: Portfol
 
     }
     const contentRef = useRef<HTMLDivElement>(null);
-
-    const handleNotePositionUpdate = (id: number, newPosition: { x: number; y: number }) => {
-        setConf((prev) => {
-            const updatedNotes = prev.notes.map((note) => {
-                if (note.id === id) {
-                    return { ...note, position: newPosition, id: id }
-                }
-                return note
-            })
-            return { ...prev, notes: updatedNotes }
-        })
-    }
 
     useEffect(() => {
         const handleScroll = () => {
@@ -358,19 +346,9 @@ export default function Portfolio({ config = defaultConfig }: { config?: Portfol
     }
 
     return (
-        <ThemeProvider>
             <div className="min-h-screen bg-gradient-to-br from-green-50 via-blue-50 to-orange-50 dark:from-neutral-950 dark:to-neutral-950 dark:via-neutral-950 text-gray-800 dark:text-gray-200 p-8">
                 <BrowserView>
-                    {conf.notes.map((note) => (
-                        <DraggableNote
-                            key={note.id}
-                            note={note}
-                            notes={conf.notes}
-                            contentRef={contentRef}
-                            onPositionUpdate={handleNotePositionUpdate}
-                            clientLang={[lang, setLang]}
-                        />
-                    ))}
+                    <DraggableBackgroundNotes initialNotes={conf.notes} clientLang={[lang, setLang]} contentRef={contentRef} />
                 </BrowserView>
                 <div ref={contentRef} className="max-w-4xl mx-auto relative z-10">
                     <BrowserView><nav className="mb-8 sticky top-0 bg-white dark:bg-neutral-900 bg-opacity-80 dark:bg-opacity-80 backdrop-blur-md z-20 p-4 rounded-lg shadow justify-between items-center">
@@ -454,7 +432,7 @@ export default function Portfolio({ config = defaultConfig }: { config?: Portfol
                                             <span className="text-sm text-gray-600 dark:text-gray-300 font-medium">README.md</span>
                                         </div>
                                         <div className="p-6 font-mono text-sm overflow-auto bg-white dark:bg-neutral-900">
-                                            <SimpleMarkdown content={usePlaceholder(GetLang(lang,"portfolio.bioMarkdown",PortfolioLocals),lang, PortfolioLocals)} />
+                                            <SimpleMarkdown content={GetLang(lang,"portfolio.bioMarkdown",PortfolioLocals)} theme={theme} />
                                         </div>
                                     </div>
                                 </TextReveal>
@@ -607,6 +585,5 @@ export default function Portfolio({ config = defaultConfig }: { config?: Portfol
                     </main>
                 </div>
             </div>
-        </ThemeProvider>
     )
 }
