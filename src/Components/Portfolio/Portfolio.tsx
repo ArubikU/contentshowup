@@ -1,4 +1,3 @@
-import { SimpleMarkdown } from '@arubiku/react-markdown'
 import { CLang, Csharp, Cuda, Gradle, Java, MCAddon, Node, Python, Reactjs, TypeScript, Vercel } from '@react-symbols/icons'
 import { motion, useAnimation } from 'framer-motion'
 import { Award, Code, Folder, Mail, User } from 'lucide-react'
@@ -11,7 +10,9 @@ import { Image } from '../Generic/Img'
 import { LangSwitcher, ThemeToggle } from '../Generic/ThemeToggle'
 import { GetLang, TranslateChilds, TranstaletedText } from '../Lang/LangSys'
 import BubbleMenu from './BubbleMenu'
+
 import { PortfolioLocals } from './PortfolioLang'
+import SimpleMarkdown from './md'
 
 interface SocialMedia {
     platform: 'github' | 'linkedin' | 'facebook' | 'instagram' | 'twitter' | 'discord' | 'cv'
@@ -91,6 +92,16 @@ const defaultConfig: PortfolioConfig = {
             bannerUrl: "",
             repository: "https://github.com/ArubikU/contentshowup/blob/main/src/Components/Portfolio.tsx",
             link: "https://arubiku.github.io/contentshowup/portfolio/",
+            technologies: [
+                <Reactjs className='h-8'></Reactjs>
+            ]
+        },
+        {
+            name: "Simple Markdown",
+            description: "Markdown usado en este proyecto",
+            bannerUrl: "",
+            repository: "https://github.com/ArubikU/react-smarkdown",
+            link: "https://www.npmjs.com/package/@arubiku/react-markdown",
             technologies: [
                 <Reactjs className='h-8'></Reactjs>
             ]
@@ -297,8 +308,6 @@ export default function Portfolio({ config = defaultConfig }: { config?: Portfol
         const subject = `Contacto desde Portafolio: ${formData.name}`
         const body = `Nombre: ${formData.name}%0D%0AEmail: ${formData.email}%0D%0AMensaje: ${formData.message}`
         //open a new window with the email client
-
-        //https://mail.google.com/mail/?view=cm&fs=1&to=someone@example.com&su=SUBJECT&body=BODY&bcc=someone.else@example.com
         window.open(`https://mail.google.com/mail/?view=cm&fs=1&to=${config.contactEmail}&su=${subject}&body=${body}`, '_blank', "location=yes,height=570,width=520,scrollbars=yes,status=yes")
 
     }
@@ -498,7 +507,7 @@ export default function Portfolio({ config = defaultConfig }: { config?: Portfol
                                                 fallback={<p></p>} />
                                             <div className="p-4">
                                                 <h3 className="text-xl font-semibold text-blue-800 dark:text-blue-200">{project.name}</h3>
-                                                <p className="text-sm text-blue-600 dark:text-blue-300 mb-2">{project.description}</p>
+                                                <p className="text-sm text-blue-600 dark:text-blue-300 mb-2"><TranstaletedText lang={lang} locals={PortfolioLocals} langPath={project.description} optional={project.description}></TranstaletedText></p>
                                                 <a href={project.repository} target="_blank" rel="noopener noreferrer" className="text-blue-500 dark:text-blue-300 hover:text-blue-700 dark:hover:text-blue-100 transition-colors">
                                                     <TranstaletedText lang={lang} locals={PortfolioLocals} langPath={"common.viewRepository"}/>
                                                 </a>

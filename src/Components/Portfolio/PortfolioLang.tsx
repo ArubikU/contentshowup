@@ -135,6 +135,26 @@ const arubik = {
     architecture: ["microservices", "event-driven", "design system pattern"],
 };
 \`\`\`
+
+## Maths
+
+$f(x) = x^2
+
+## Admonitions
+
+> [!NOTE]
+> This is a note admonition.
+
+> [!TIP]
+> Here's a helpful tip!
+> MAGIC
+
+## Table
+
+| Column 1 | Column 2 |
+| Cell 1   | Cell 2   |
+| Cell 3   | Cell 4   |
+
     `,
     technologies: 'Technologies',
     certificates: 'Certificates',
