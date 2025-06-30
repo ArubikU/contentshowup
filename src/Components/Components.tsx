@@ -1,5 +1,6 @@
 import * as CollapsiblePrimitive from "@radix-ui/react-collapsible"
 import * as SelectPrimitive from "@radix-ui/react-select"
+import cn from "classnames"
 import { Check, ChevronDown } from "lucide-react"
 import * as React from "react"
 
@@ -74,6 +75,24 @@ interface DialogProps {
       <h3 className="text-lg font-medium leading-6 text-gray-900" id="modal-headline">
         {children}
       </h3>
+    )
+  }
+  interface DialogFooterProps extends React.HTMLAttributes<HTMLDivElement> {
+    className?: string
+    children: React.ReactNode
+  }
+  
+  export function DialogFooter({ className, children, ...props }: DialogFooterProps) {
+    return (
+      <div
+        className={cn(
+          "flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2",
+          className
+        )}
+        {...props}
+      >
+        {children}
+      </div>
     )
   }
   

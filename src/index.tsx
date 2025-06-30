@@ -5,6 +5,7 @@ import { BrowserRouter, HashRouter, Route, Routes } from 'react-router-dom';
 import App from './App';
 import Portfolio from './Components/Portfolio/Portfolio';
 import './index.css';
+import LRCDB from './Test';
 import { ThemeProvider } from './ThemeContext';
 const RouterType = process.env.HASH_ROUTER === 'true' ? HashRouter : BrowserRouter
 
@@ -15,6 +16,7 @@ ReactDOM.render(
     
   <RouterType>
     <Routes>
+    <Route path="/contentshowup/lrcdb" element={<LRCDB />} />
     <Route path="/contentshowup/portfolio" element={<Portfolio />} />
     <Route path="*" element={<App />} />
     </Routes> 
